@@ -1,0 +1,246 @@
+/* custom.css — estilos propios que se suman a style.css de Electro */
+
+/* Migración Bootstrap 3 -> 5: pull-left/pull-right ya no existen en BS5,
+   se reemplazaron por float-start/float-end en el HTML. style.css (v3)
+   tenía esta misma regla apuntando a .pull-left/.pull-right; la repetimos
+   aquí con los nombres nuevos para no tocar el archivo del theme. */
+@media only screen and (max-width: 991px) {
+  #top-header .header-links.float-start {
+    float: none !important;
+  }
+  #top-header .header-links.float-end {
+    float: none !important;
+    margin-top: 5px;
+  }
+}
+
+.btn-feedback-ok {
+  background-color: #2ecc71 !important;
+  color: #fff !important;
+}
+
+.btn-feedback-error {
+  background-color: #e74c3c !important;
+  color: #fff !important;
+}
+
+.product-label .new {
+  background-color: #29b6f6;
+}
+
+/* ---- Control de tamaño de imágenes de producto ---- */
+
+/* Tarjetas del listado (productos.html) */
+.product .product-img {
+  width: 100%;
+  height: 220px;       /* alto fijo: cambia este valor a gusto */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7; /* relleno visible cuando la imagen no llena todo el espacio */
+}
+
+.product .product-img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* muestra la imagen COMPLETA, sin recortar */
+  object-position: center;
+}
+
+/* El <img> va dentro de un <a> (para que la imagen sea clickeable),
+   así que el <a> también debe ocupar todo el espacio del contenedor
+   y las reglas de tamaño deben aplicar sin importar el anidamiento. */
+.product .product-img a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.product .product-img img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Imagen principal en la página de detalle (product.html) */
+#product-main-img {
+  width: 100%;
+  height: 100%;   /* alto fijo: cambia este valor a gusto */
+  overflow: hidden;
+}
+
+#product-main-img img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+/* Miniaturas debajo de la imagen principal en el detalle */
+#product-imgs .product-preview {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+}
+
+#product-imgs .product-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-nav {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+.main-nav > li {
+  float: left;
+  list-style: none;
+}
+
+/* Miniaturas debajo de la imagen principal en el detalle */
+#product-imgs .product-preview {
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#product-imgs .product-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Control global del logo de la tienda */
+.header-logo .logo img {
+  max-width: 160px;
+  height: auto;
+  display: block;
+}
+
+/* Control de ancho estandarizado para formularios */
+.contenedor-formulario {
+  max-width: 500px;
+  margin: 0 auto; /* Centra la caja horizontalmente */
+  width: 100%;
+  padding: 20px 15px;
+}
+
+.prompt-thin {
+  font-family: "Prompt", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.prompt-extralight {
+  font-family: "Prompt", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.prompt-light {
+  font-family: "Prompt", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.prompt-regular {
+  font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.prompt-medium {
+  font-family: "Prompt", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.prompt-semibold {
+  font-family: "Prompt", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.prompt-bold {
+  font-family: "Prompt", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.prompt-extrabold {
+  font-family: "Prompt", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.prompt-black {
+  font-family: "Prompt", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.prompt-thin-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.prompt-extralight-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.prompt-light-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.prompt-regular-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.prompt-medium-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.prompt-semibold-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.prompt-bold-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.prompt-extrabold-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.prompt-black-italic {
+  font-family: "Prompt", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.colo-peru{
+  background-color: peru;
+}
