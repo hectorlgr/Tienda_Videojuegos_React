@@ -142,6 +142,84 @@ a:focus-visible, button:focus-visible {
   margin-top: 0;
 }
 
+/* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
+.catalog-title {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.catalog-categories li + li {
+  margin-top: 12px;
+}
+
+.catalog-state {
+  padding: 40px 20px;
+  border: 1px solid #e4e7ed;
+  background: #fbfbfc;
+  text-align: center;
+}
+
+.catalog-product {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+}
+
+.catalog-product .product-body {
+  flex: 1;
+}
+
+.catalog-product .product-label {
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.catalog-product .product-price {
+  font-weight: 700;
+}
+
+.catalog-product .product-stock {
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.catalog-product .is-available {
+  color: #23723c;
+}
+
+.catalog-product .is-unavailable {
+  color: #b42332;
+}
+
+.product.catalog-product .add-to-cart {
+  position: static;
+  transform: none;
+}
+
+.product.catalog-product .add-to-cart-btn:disabled {
+  width: 100%;
+  height: auto;
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 12px;
+  background: #646473;
+  color: #fff;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.product.catalog-product .add-to-cart-btn:disabled > i {
+  position: static;
+  width: auto;
+  height: auto;
+  line-height: inherit;
+  color: inherit;
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 991px) {
   .header-logo, .header-ctn {
     float: none;
