@@ -1,0 +1,176 @@
+/* Adaptación del shell de Electro a React y Bootstrap 5. */
+body {
+  margin: 0;
+  color: #333;
+  background: #fff;
+}
+
+#root, .app-shell {
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell > main {
+  flex: 1;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.store-search {
+  display: flex;
+}
+
+.store-search .input {
+  flex: 1;
+  min-width: 0;
+  border-radius: 40px 0 0 40px;
+}
+
+.store-search .search-btn {
+  width: 100px;
+  border: 0;
+  border-radius: 0 40px 40px 0;
+  background: #8a2be2;
+  color: #fff;
+  font-weight: 700;
+}
+
+.store-search :disabled {
+  cursor: not-allowed;
+}
+
+.navigation-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  border: 0;
+  background: transparent;
+  color: #2b2d42;
+  font-weight: 700;
+}
+
+#navigation .site-nav-list {
+  float: none;
+  gap: 0 30px;
+}
+
+#navigation .site-nav-list > li {
+  float: none;
+  margin: 0;
+}
+
+#navigation .site-nav-list > li > a {
+  display: block;
+}
+
+#navigation .site-nav-list a.active {
+  color: #8a2be2 !important;
+}
+
+#navigation .site-nav-list a.active::after {
+  width: 100%;
+}
+
+.placeholder-section {
+  padding: 64px 0;
+}
+
+.page-placeholder {
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  background: #fbfbfc;
+}
+
+.page-placeholder h1 {
+  margin-bottom: 16px;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  overflow-wrap: anywhere;
+}
+
+.placeholder-eyebrow {
+  color: #8a2be2;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.store-footer .footer-links a {
+  overflow-wrap: anywhere;
+}
+
+.store-footer .footer-links span {
+  color: #8d99ae;
+}
+
+.store-footer .footer-payments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  font-size: 32px;
+  color: #b9babc;
+}
+
+.admin-header-label, .admin-store-link {
+  color: #fff;
+}
+
+.admin-footer .copyright {
+  margin-top: 0;
+}
+
+@media (max-width: 991px) {
+  .header-logo, .header-ctn {
+    float: none;
+    text-align: center;
+  }
+
+  .header-search, .header-ctn {
+    padding: 0;
+  }
+
+  .navigation-toggle {
+    display: inline-flex;
+  }
+
+  #navigation .site-nav-list {
+    display: none !important;
+    flex-direction: column !important;
+    padding-bottom: 10px;
+  }
+
+  #navigation .site-nav-list.is-open {
+    display: flex !important;
+  }
+
+  #navigation .site-nav-list > li > a {
+    padding: 12px 0;
+  }
+
+  .placeholder-section {
+    padding: 32px 0;
+  }
+}

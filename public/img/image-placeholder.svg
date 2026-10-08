@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360" fill="none">
+  <rect width="480" height="360" rx="16" fill="#F4F5F8"/>
+  <rect x="164" y="80" width="152" height="126" rx="12" stroke="#8D99AE" stroke-width="6"/>
+  <circle cx="206" cy="119" r="14" fill="#8D99AE"/>
+  <path d="m172 194 43-44 33 30 27-25 33 39" stroke="#8D99AE" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="240" y="258" text-anchor="middle" fill="#2B2D42" font-family="Arial,sans-serif" font-size="22">Imagen no disponible</text>
+  <text x="240" y="290" text-anchor="middle" fill="#727B8B" font-family="Arial,sans-serif" font-size="15">CheckPoint Store</text>
+</svg>
