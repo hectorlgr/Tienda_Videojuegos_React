@@ -25,15 +25,6 @@ export default function ProductsPage() {
       : 'No se encontraron productos para la búsqueda indicada.'
     : 'No hay productos para las categorías seleccionadas.'
 
-  function changeSearch(value) {
-    setSearchParams(previous => {
-      const next = new URLSearchParams(previous)
-      if (value === '') next.delete('q')
-      else next.set('q', value)
-      return next
-    }, { replace: true })
-  }
-
   function toggleCategory(value, checked) {
     setSearchParams(previous => {
       const next = new URLSearchParams(previous)
@@ -79,17 +70,6 @@ export default function ProductsPage() {
               <span className="store-qty">
                 {searchTerm ? 'Resultados de búsqueda en el catálogo' : selectedCategories.length ? 'Productos de las categorías seleccionadas' : 'Catálogo completo de la tienda'}
               </span>
-            </div>
-            <div className="mb-4" role="search" aria-label="Búsqueda en el catálogo">
-              <label className="form-label" htmlFor="catalog-search">Buscar por nombre</label>
-              <input
-                id="catalog-search"
-                className="input"
-                type="search"
-                placeholder="Ej.: Elden Ring"
-                value={searchValue}
-                onChange={event => changeSearch(event.target.value)}
-              />
             </div>
             <div aria-busy={loading}>
               {loading ? (
