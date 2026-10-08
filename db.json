@@ -177,6 +177,128 @@
       "stockCritico": null
     }
   ],
-  "usuarios": [],
-  "ordenes": []
+  "usuarios": [
+    {
+      "id": 1,
+      "run": null,
+      "nombre": "Administrador General",
+      "apellidos": null,
+      "correo": "admin@checkpointstore.cl",
+      "password": "Admin123!",
+      "direccion": null,
+      "region": null,
+      "comuna": null,
+      "rol": "administrador"
+    },
+    {
+      "id": 2,
+      "run": null,
+      "nombre": "Vendedor Tienda",
+      "apellidos": null,
+      "correo": "vendedor@checkpointstore.cl",
+      "password": "Vendedor123!",
+      "direccion": null,
+      "region": null,
+      "comuna": null,
+      "rol": "vendedor"
+    },
+    {
+      "id": 3,
+      "run": null,
+      "nombre": "Cliente Demo",
+      "apellidos": null,
+      "correo": "cliente@checkpointstore.cl",
+      "password": "Cliente123!",
+      "direccion": null,
+      "region": null,
+      "comuna": null,
+      "rol": "cliente"
+    }
+  ],
+  "ordenes": [
+    {
+      "id": 1,
+      "run": "19.011.022-K",
+      "nombre": "Luisa",
+      "apellido": "Gómez",
+      "correo": "luisa@gmail.com",
+      "region": "Región Metropolitana",
+      "comuna": "Providencia",
+      "direccion": "Av. Nueva Providencia 1234",
+      "montoTotal": 650000,
+      "estado": "Pendiente"
+    },
+    {
+      "id": 2,
+      "run": "17.345.678-9",
+      "nombre": "Carlos",
+      "apellido": "Sepulveda",
+      "correo": "carlos@gmail.com",
+      "region": "Región de Valparaíso",
+      "comuna": "Viña del Mar",
+      "direccion": "Calle Los Pinos 456",
+      "montoTotal": 1200000,
+      "estado": "Pagado"
+    },
+    {
+      "id": 3,
+      "run": "20.123.456-7",
+      "nombre": "Ana",
+      "apellido": "Rojas",
+      "correo": "ana@gmail.com",
+      "region": "Región Metropolitana",
+      "comuna": "Lo espejo",
+      "direccion": "Av. Paicaví 789",
+      "montoTotal": 800000,
+      "estado": "Enviado"
+    },
+    {
+      "id": 4,
+      "run": "18.987.654-3",
+      "nombre": "Pedro",
+      "apellido": "López",
+      "correo": "pedro@gmail.com",
+      "region": "Región Metropolitana",
+      "comuna": "Lo prado",
+      "direccion": "Camino Viejo 321",
+      "montoTotal": 950000,
+      "estado": "Entregado"
+    },
+    {
+      "id": 5,
+      "run": "21.456.789-5",
+      "nombre": "María",
+      "apellido": "Fernández",
+      "correo": "maria@gmail.com",
+      "region": "Región de Valparaíso",
+      "comuna": "Villa Alemana",
+      "direccion": "Av. Alemania 222",
+      "montoTotal": 720000,
+      "estado": "Pendiente"
+    },
+    {
+      "id": 6,
+      "run": "22.987.654-2",
+      "nombre": "José",
+      "apellido": "Ramírez",
+      "correo": "jose@gmail.com",
+      "region": "Región de Valparaíso",
+      "comuna": "Quilpué",
+      "direccion": "Av. Angamos 999",
+      "montoTotal": 1500000,
+      "estado": "Pagado"
+    },
+    {
+      "id": 7,
+      "run": "23.111.222-8",
+      "nombre": "Camila",
+      "apellido": "Torres",
+      "correo": "camila@gmail.com",
+      "region": "Región Metropolitana",
+      "comuna": "Lo Barnechea",
+      "direccion": "Av. Los Héroes 55",
+      "montoTotal": 890000,
+      "estado": "Enviado"
+    }
+  ]
 }

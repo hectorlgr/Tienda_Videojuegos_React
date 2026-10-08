@@ -19,7 +19,7 @@ Se utiliza JSON Server **0.17.4**, versión estable fijada como dependencia de d
 
 El script de JSON Server observa `db.json` en la raíz del proyecto y escucha únicamente en la interfaz local, puerto **3001**, independiente de Vite.
 
-`db.json` contiene los ocho productos base y ocho registros de inventario independientes. `usuarios` y `ordenes` permanecen como arreglos vacíos. No se implementaron servicios, peticiones desde React, Context, autenticación o carrito; las páginas siguen siendo placeholders.
+`db.json` contiene ocho productos base, ocho registros de inventario independientes, tres usuarios y siete órdenes de demostración. No se implementaron servicios, peticiones desde React, Context, autenticación, guards o carrito; las páginas siguen siendo placeholders.
 
 ## Datos iniciales de productos e inventario
 
@@ -74,15 +74,57 @@ Con `npm run server` activo en `http://127.0.0.1:3001`:
 | `GET /productos/1` | HTTP 200, Elden Ring, código JUE-001 y precio 45000 |
 | `GET /inventario` | HTTP 200, arreglo de 8 registros |
 | `GET /inventario?productoId=1` | HTTP 200, un registro con productoId 1, stock 15 y stockCritico null |
-| `GET /usuarios` | HTTP 200, `[]` |
-| `GET /ordenes` | HTTP 200, `[]` |
+| `GET /usuarios` | HTTP 200, arreglo de 3 usuarios de demostración |
+| `GET /usuarios/1` | HTTP 200, Administrador General, rol administrador |
+| `GET /ordenes` | HTTP 200, arreglo de 7 órdenes de demostración |
+| `GET /ordenes/1` | HTTP 200, orden de Luisa Gómez, montoTotal 650000, estado Pendiente |
+
+## Datos iniciales de usuarios y órdenes
+
+Los datos proceden de los arreglos `USUARIOS` y `ordenes` de los scripts originales `usuarios.js` y `admin_ordenes.js`, utilizados exclusivamente como referencia. Se conservaron todos sus valores sin corregir grafías, mayúsculas, acentos, RUN ni direcciones. Los productos y el inventario existentes no se modificaron.
+
+### Usuarios
+
+La estructura de cada usuario es: `id`, `run`, `nombre`, `apellidos`, `correo`, `password`, `direccion`, `region`, `comuna` y `rol`.
+
+| ID técnico | Nombre conservado | Correo conservado | Rol |
+| --- | --- | --- | --- |
+| 1 | Administrador General | admin@checkpointstore.cl | administrador |
+| 2 | Vendedor Tienda | vendedor@checkpointstore.cl | vendedor |
+| 3 | Cliente Demo | cliente@checkpointstore.cl | cliente |
+
+Los IDs son numéricos, estables y únicos dentro de la colección. `tipoUsuario` se normalizó a `rol`; sus únicos valores son `administrador`, `vendedor` y `cliente`.
+
+En los tres usuarios se dejaron `run`, `apellidos`, `direccion`, `region` y `comuna` en `null`, porque no existen en la fuente. Los nombres se mantuvieron completos, sin dividirlos artificialmente.
+
+Los correos y contraseñas se conservaron exactamente. Las contraseñas se mantienen en texto plano exclusivamente para la autenticación académica simulada con JSON Server; no se implementó hashing ni seguridad de backend. El futuro registro asignará rol `cliente`, pero esa funcionalidad aún no existe.
+
+### Órdenes
+
+La estructura de cada orden es: `id`, `run`, `nombre`, `apellido`, `correo`, `region`, `comuna`, `direccion`, `montoTotal` y `estado`.
+
+| ID técnico | Nombre y apellido conservados | Monto total | Estado |
+| --- | --- | ---: | --- |
+| 1 | Luisa Gómez | 650000 | Pendiente |
+| 2 | Carlos Sepulveda | 1200000 | Pagado |
+| 3 | Ana Rojas | 800000 | Enviado |
+| 4 | Pedro López | 950000 | Entregado |
+| 5 | María Fernández | 720000 | Pendiente |
+| 6 | José Ramírez | 1500000 | Pagado |
+| 7 | Camila Torres | 890000 | Enviado |
+
+Los IDs son numéricos, estables y únicos dentro de la colección. Se normalizaron únicamente los nombres de campos `rut` a `run` y `monto` a `montoTotal`; se conserva `apellido` singular en las órdenes y `apellidos` en los usuarios.
+
+No se omitieron datos de los registros originales ni se agregaron productos, cantidades, fechas, métodos de pago, detalles o `usuarioId`. Las personas de las órdenes no están relacionadas con los usuarios de demostración. Las órdenes se destinan únicamente a consulta en esta entrega: no se implementaron CRUD, detalle ni lógica de estados.
+
+La migración solo incorpora datos; no traslada las funciones de búsqueda, generación de tablas o colores de badges de los scripts antiguos.
 
 ## Estructura
 
 ```text
 tienda-react/
 ├── index.html
-├── db.json                          # 8 productos, 8 inventarios; usuarios/órdenes vacíos
+├── db.json                          # 8 productos, 8 inventarios, 3 usuarios y 7 órdenes
 ├── public/
 │   ├── fonts/                       # Font Awesome
 │   └── img/                         # Imágenes existentes + image-placeholder.svg
