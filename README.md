@@ -19,7 +19,26 @@ Se utiliza JSON Server **0.17.4**, versión estable fijada como dependencia de d
 
 El script de JSON Server observa `db.json` en la raíz del proyecto y escucha únicamente en la interfaz local, puerto **3001**, independiente de Vite.
 
-`db.json` contiene ocho productos base, ocho registros de inventario independientes, tres usuarios y siete órdenes de demostración. No se implementaron servicios, peticiones desde React, Context, autenticación, guards o carrito; las páginas siguen siendo placeholders.
+`db.json` contiene ocho productos base, ocho registros de inventario independientes, tres usuarios y siete órdenes de demostración. Solo existen servicios de consulta de productos e inventario, todavía sin conexión con las páginas. No se implementaron Context, autenticación, guards o carrito; las páginas siguen siendo placeholders.
+
+## Configuración y servicios HTTP
+
+Copiar `.env.example` a `.env` antes de utilizar los servicios. La variable pública `VITE_API_URL` define la URL de JSON Server; su valor de ejemplo es `http://127.0.0.1:3001`. Reiniciar Vite después de cambiarla. `.env` está ignorado por Git y `.env.example` es versionable. Esta variable no contiene secretos.
+
+`src/config/api.js` lee `import.meta.env.VITE_API_URL`. `src/services/httpClient.js` centraliza la construcción de URLs y parámetros, `fetch` nativo, la comprobación HTTP y la lectura JSON. No se agregan dependencias ni reintentos.
+
+| Servicio | Función | Resultado |
+| --- | --- | --- |
+| `productService` | `getProducts()` | Arreglo de productos |
+| `productService` | `getProductById(id)` | Producto individual |
+| `inventoryService` | `getInventory()` | Arreglo de inventario |
+| `inventoryService` | `getInventoryByProductId(productId)` | Registro individual consultado con `?productoId=...` |
+
+Todas las funciones devuelven promesas y realizan únicamente GET. Los IDs recibidos deben ser números enteros positivos seguros: se rechazan cadenas, sin convertirlas automáticamente. La futura conversión de parámetros de React Router se hará al conectar las páginas.
+
+Los errores HTTP son instancias de `HttpError` con `status`. Un producto inexistente produce un error específico con estado 404; una consulta de inventario vacía produce un `Error` indicando el producto sin inventario. Los fallos de conexión y lectura JSON tienen mensajes descriptivos y conservan el error original en `cause`. No existen consumidores React de estos servicios ni componentes visuales de error.
+
+Verificación aislada realizada cargando los servicios mediante Vite, sin importarlos en ninguna página: ocho productos, producto 1 (Elden Ring), ocho inventarios, inventario de producto 1 (stock 15), producto inexistente e inventario inexistente. También se verificaron el rechazo de IDs de tipo cadena y respuestas simuladas de HTTP 503, JSON inválido y fallo de conexión. Todas las comprobaciones pasaron, junto con build y lint; no se hicieron escrituras en la API.
 
 ## Datos iniciales de productos e inventario
 
@@ -123,6 +142,7 @@ La migración solo incorpora datos; no traslada las funciones de búsqueda, gene
 
 ```text
 tienda-react/
+├── .env.example                     # URL pública de la API; copiar a .env
 ├── index.html
 ├── db.json                          # 8 productos, 8 inventarios, 3 usuarios y 7 órdenes
 ├── public/
@@ -131,6 +151,12 @@ tienda-react/
 └── src/
     ├── App.jsx                      # BrowserRouter
     ├── main.jsx                     # Montaje e imports de estilos ordenados
+    ├── config/
+    │   └── api.js                   # VITE_API_URL
+    ├── services/
+    │   ├── httpClient.js            # GET, URLs, JSON y errores HTTP
+    │   ├── productService.js        # Consultas de productos
+    │   └── inventoryService.js      # Consultas de inventario
     ├── app/
     │   └── AppRouter.jsx            # Rutas anidadas y redirección /admin
     ├── layouts/
@@ -171,6 +197,7 @@ tienda-react/
     │   ├── custom.css
     │   └── app.css                  # Adaptaciones de layouts y navegación
     └── utils/
+        ├── ids.js                   # Validación de IDs numéricos, sin conversión
         └── assets.js                # URLs públicas con BASE_URL de Vite
 ```
 
@@ -206,7 +233,7 @@ Las rutas administrativas están abiertas para revisar la infraestructura. No se
 - Se retiraron los estilos y recursos iniciales de Vite. La fuente pública es Lato, coherente con Electro.
 - Bootstrap y React Router ya estaban disponibles. JSON Server 0.17.4 se agregó como dependencia de desarrollo; `package.json` y el lockfile registran esta instalación.
 - Se corrigió la indentación de `.gitignore`: impedía ignorar correctamente la carpeta generada `dist` y otros patrones.
-- No hay jQuery, Slick, scripts antiguos, `public/js`, servicios HTTP, AuthContext ni CartContext. JSON Server y `db.json` están preparados, pero React todavía no los consume.
+- No hay jQuery, Slick, scripts antiguos, `public/js`, AuthContext ni CartContext. Los servicios HTTP de productos e inventario están preparados, pero las páginas React todavía no los consumen.
 - La búsqueda está deshabilitada. Los textos del footer sin página existente se muestran sin enlaces ficticios. Las referencias visuales de medios de pago no ejecutan pagos.
 - No se modificó el proyecto original `Tienda Videojuegos`.
 
