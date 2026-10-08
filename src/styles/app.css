@@ -148,8 +148,26 @@ a:focus-visible, button:focus-visible {
   margin-bottom: 12px;
 }
 
-.catalog-categories li + li {
-  margin-top: 12px;
+.catalog-filter-help {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Electro oculta los inputs; aquí siguen accesibles para teclado y lectores. */
+.catalog-categories .input-checkbox input[type="checkbox"] {
+  margin-left: 0;
+  visibility: visible;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 20px;
+}
+
+.catalog-categories input:focus-visible + label span {
+  outline: 3px solid #8a2be2;
+  outline-offset: 3px;
 }
 
 .catalog-state {
