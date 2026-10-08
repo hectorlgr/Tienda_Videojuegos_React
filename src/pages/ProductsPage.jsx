@@ -11,9 +11,28 @@ export default function ProductsPage() {
   const selectedCategories = CATALOG_CATEGORIES
     .filter(category => requestedCategories.includes(category.value))
     .map(category => category.value)
-  const filteredProducts = selectedCategories.length === 0
+  const searchValue = searchParams.get('q') ?? ''
+  const searchTerm = searchValue.trim().toLowerCase()
+  const categoryProducts = selectedCategories.length === 0
     ? products
     : products.filter(product => selectedCategories.includes(product.categoria))
+  const filteredProducts = searchTerm
+    ? categoryProducts.filter(product => product.nombre.toLowerCase().includes(searchTerm))
+    : categoryProducts
+  const noResultsMessage = searchTerm
+    ? selectedCategories.length
+      ? 'No se encontraron productos para las categorías y la búsqueda indicadas.'
+      : 'No se encontraron productos para la búsqueda indicada.'
+    : 'No hay productos para las categorías seleccionadas.'
+
+  function changeSearch(value) {
+    setSearchParams(previous => {
+      const next = new URLSearchParams(previous)
+      if (value === '') next.delete('q')
+      else next.set('q', value)
+      return next
+    }, { replace: true })
+  }
 
   function toggleCategory(value, checked) {
     setSearchParams(previous => {
@@ -51,15 +70,26 @@ export default function ProductsPage() {
                   </div>
                 ))}
               </div>
-              <p className="catalog-filter-help">Sin filtros marcados se muestran todos los productos.</p>
+              <p className="catalog-filter-help">Sin categorías marcadas se incluyen todas las categorías.</p>
             </div>
           </aside>
           <div id="store" className="col-lg-9">
             <div className="store-filter clearfix">
               <h1 id="catalog-title" className="catalog-title">Productos</h1>
               <span className="store-qty">
-                {selectedCategories.length ? 'Productos de las categorías seleccionadas' : 'Catálogo completo de la tienda'}
+                {searchTerm ? 'Resultados de búsqueda en el catálogo' : selectedCategories.length ? 'Productos de las categorías seleccionadas' : 'Catálogo completo de la tienda'}
               </span>
+            </div>
+            <div className="mb-4" role="search" aria-label="Búsqueda en el catálogo">
+              <label className="form-label" htmlFor="catalog-search">Buscar por nombre</label>
+              <input
+                id="catalog-search"
+                className="input"
+                type="search"
+                placeholder="Ej.: Elden Ring"
+                value={searchValue}
+                onChange={event => changeSearch(event.target.value)}
+              />
             </div>
             <div aria-busy={loading}>
               {loading ? (
@@ -69,7 +99,7 @@ export default function ProductsPage() {
               ) : products.length === 0 ? (
                 <p className="catalog-state" role="status">No hay productos disponibles en el catálogo.</p>
               ) : filteredProducts.length === 0 ? (
-                <p className="catalog-state" role="status">No hay productos para las categorías seleccionadas.</p>
+                <p className="catalog-state" role="status">{noResultsMessage}</p>
               ) : (
                 <div className="row g-4" id="products-grid">
                   {filteredProducts.map(product => (
