@@ -19,25 +19,70 @@ Se utiliza JSON Server **0.17.4**, versión estable fijada como dependencia de d
 
 El script de JSON Server observa `db.json` en la raíz del proyecto y escucha únicamente en la interfaz local, puerto **3001**, independiente de Vite.
 
-La estructura inicial contiene exclusivamente cuatro colecciones vacías:
+`db.json` contiene los ocho productos base y ocho registros de inventario independientes. `usuarios` y `ordenes` permanecen como arreglos vacíos. No se implementaron servicios, peticiones desde React, Context, autenticación o carrito; las páginas siguen siendo placeholders.
+
+## Datos iniciales de productos e inventario
+
+La fuente del catálogo es exclusivamente el arreglo `PRODUCTOS` de `data-productos.js` del proyecto original, leído como referencia sin modificarlo. No se utilizaron los productos ni los precios escritos manualmente en Home, ni datos persistidos en el navegador.
+
+Cada producto contiene `id`, `codigo`, `nombre`, `categoria`, `precio`, `imagen`, `imagenes`, `descripcionCorta` y `descripcionLarga`. Los campos específicos se omiten cuando no corresponden: los juegos incluyen `formato` y `plataforma`; los accesorios, `compatibilidad`; las figuras, `franquicia`. Las consolas no tienen campos específicos adicionales en la fuente original.
+
+El ID técnico del producto es numérico y conserva los valores 1 a 8. El código comercial es una cadena independiente, con prefijo por categoría y una secuencia inicial de tres dígitos dentro de ella:
+
+| ID de producto | Código comercial | Producto | Precio CLP | Stock inicial |
+| --- | --- | --- | ---: | ---: |
+| 1 | JUE-001 | Elden Ring | 45000 | 15 |
+| 2 | JUE-002 | Super Mario Odyssey | 50000 | 999 |
+| 3 | CON-001 | PlayStation 5 | 550000 | 6 |
+| 4 | CON-002 | Nintendo Switch OLED | 350000 | 9 |
+| 5 | ACC-001 | Control DualSense | 65000 | 30 |
+| 6 | ACC-002 | Guitarra Guitar Hero | 40000 | 8 |
+| 7 | FIG-001 | Amiibo Bowser | 25000 | 20 |
+| 8 | FIG-002 | Funko Pop Kratos | 15000 | 25 |
+
+Estos códigos son datos iniciales, no una regla automática para futuras altas. Posteriormente el administrador introducirá el código y deberá validarse su unicidad; esa funcionalidad no está implementada.
+
+Cada registro de `/inventario` tiene esta estructura:
 
 ```json
 {
-  "productos": [],
-  "inventario": [],
-  "usuarios": [],
-  "ordenes": []
+  "id": 1,
+  "productoId": 1,
+  "stock": 15,
+  "stockCritico": null
 }
 ```
 
-Las peticiones GET a `/productos`, `/inventario`, `/usuarios` y `/ordenes` en `http://127.0.0.1:3001` deben responder con HTTP 200 y `[]`. No se migraron datos del proyecto antiguo ni se implementaron servicios, peticiones desde React, Context, autenticación o carrito.
+Los IDs de inventario también son numéricos, únicos dentro de su colección y van de 1 a 8. Aunque coinciden con los IDs de producto en estos datos iniciales, la relación se establece exclusivamente por `productoId`; `inventario.id` identifica al registro de inventario.
+
+Hay exactamente un inventario por producto, sin referencias huérfanas. `/productos` no guarda `stock` ni `stockCritico`. Los ocho valores de `stockCritico` son `null`, porque la fuente no define un umbral. No se agregó lógica para ese campo. Esta separación prepara Catálogo e Inventario como recursos independientes para su futura separación en microservicios.
+
+### Normalización de imágenes y campos
+
+- Se conservaron nombres, categorías, precios, descripciones y atributos específicos del arreglo original.
+- Las rutas históricas `assets/img/...` se normalizaron a `img/...`, que corresponde a los archivos existentes en `public/img` de React. Son rutas públicas de imágenes, no rutas de recursos del catálogo.
+- Todos los productos tienen `imagenes` como arreglo. Kratos, que solo tenía `imagen`, ahora tiene una galería de un elemento. Se conserva el orden de las otras galerías, incluida la imagen repetida de la guitarra.
+- La tercera imagen de Bowser, `assets/img/cara_mesa_amiibo.jpg`, no existe. Esa entrada se sustituyó por `img/image-placeholder.svg`, el placeholder ya disponible. No se crearon ni modificaron imágenes.
+
+### Comprobación HTTP
+
+Con `npm run server` activo en `http://127.0.0.1:3001`:
+
+| Petición | Respuesta esperada |
+| --- | --- |
+| `GET /productos` | HTTP 200, arreglo de 8 productos sin campos de stock |
+| `GET /productos/1` | HTTP 200, Elden Ring, código JUE-001 y precio 45000 |
+| `GET /inventario` | HTTP 200, arreglo de 8 registros |
+| `GET /inventario?productoId=1` | HTTP 200, un registro con productoId 1, stock 15 y stockCritico null |
+| `GET /usuarios` | HTTP 200, `[]` |
+| `GET /ordenes` | HTTP 200, `[]` |
 
 ## Estructura
 
 ```text
 tienda-react/
 ├── index.html
-├── db.json                          # Cuatro colecciones vacías de la API simulada
+├── db.json                          # 8 productos, 8 inventarios; usuarios/órdenes vacíos
 ├── public/
 │   ├── fonts/                       # Font Awesome
 │   └── img/                         # Imágenes existentes + image-placeholder.svg

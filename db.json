@@ -1,6 +1,182 @@
 {
-  "productos": [],
-  "inventario": [],
+  "productos": [
+    {
+      "id": 1,
+      "codigo": "JUE-001",
+      "nombre": "Elden Ring",
+      "categoria": "juego",
+      "precio": 45000,
+      "imagen": "img/cara_elden_ring.jpg",
+      "imagenes": [
+        "img/cara_elden_ring.jpg",
+        "img/cara_contraportada_elden.jpg",
+        "img/cara_elden_mini1.jpg"
+      ],
+      "descripcionCorta": "El aclamado juego de rol y acción de FromSoftware.",
+      "descripcionLarga": "Elden Ring es un juego de rol y acción en mundo abierto desarrollado por FromSoftware. Esta edición física incluye disco y caja original, con soporte para PS5, Xbox Series X y PC.",
+      "formato": "fisico",
+      "plataforma": "PS5 / Xbox Series X / PC"
+    },
+    {
+      "id": 2,
+      "codigo": "JUE-002",
+      "nombre": "Super Mario Odyssey",
+      "categoria": "juego",
+      "precio": 50000,
+      "imagen": "img/cara_super_mario_odyssey.jpg",
+      "imagenes": [
+        "img/cara_super_mario_odyssey.jpg",
+        "img/cara_contraportada_mario.jpg",
+        "img/cara_mario_mini1.jpg"
+      ],
+      "descripcionCorta": "Aventura 3D clásica para Nintendo Switch.",
+      "descripcionLarga": "Super Mario Odyssey es una aventura de plataformas 3D para Nintendo Switch. Esta es la versión digital: el código de descarga llega asociado a tu cuenta al instante tras la compra.",
+      "formato": "digital",
+      "plataforma": "Nintendo Switch"
+    },
+    {
+      "id": 3,
+      "codigo": "CON-001",
+      "nombre": "PlayStation 5",
+      "categoria": "consola",
+      "precio": 550000,
+      "imagen": "img/cara_ps5.jpg",
+      "imagenes": [
+        "img/cara_ps5.jpg",
+        "img/cara_medidas_ps5fat.png",
+        "img/cara_mesa_ps5.jpg"
+      ],
+      "descripcionCorta": "Consola de nueva generación con lector de discos.",
+      "descripcionLarga": "PlayStation 5 con lector de discos incluido, SSD ultrarrápido y soporte para juegos en 4K. Compatible con la mayoría de títulos de PS4."
+    },
+    {
+      "id": 4,
+      "codigo": "CON-002",
+      "nombre": "Nintendo Switch OLED",
+      "categoria": "consola",
+      "precio": 350000,
+      "imagen": "img/cara_nintendo_switch_oled.jpg",
+      "imagenes": [
+        "img/cara_nintendo_switch_oled.jpg",
+        "img/cara_medidas_nsoled.png",
+        "img/cara_mesa_nsoled.jpg"
+      ],
+      "descripcionCorta": "Consola híbrida con pantalla OLED vibrante.",
+      "descripcionLarga": "Nintendo Switch OLED combina modo portátil y de escritorio, con una pantalla OLED de colores más vivos y mayor contraste que el modelo estándar."
+    },
+    {
+      "id": 5,
+      "codigo": "ACC-001",
+      "nombre": "Control DualSense",
+      "categoria": "accesorio",
+      "precio": 65000,
+      "imagen": "img/cara_dualsense.jpg",
+      "imagenes": [
+        "img/cara_dualsense.jpg",
+        "img/cara_medidas_dualsence.png",
+        "img/cara_caja_dualsence.jpg"
+      ],
+      "descripcionCorta": "Mando inalámbrico para PS5 con respuesta háptica.",
+      "descripcionLarga": "Control DualSense inalámbrico para PlayStation 5, con retroalimentación háptica y gatillos adaptativos que responden a la acción del juego.",
+      "compatibilidad": "PlayStation 5"
+    },
+    {
+      "id": 6,
+      "codigo": "ACC-002",
+      "nombre": "Guitarra Guitar Hero",
+      "categoria": "accesorio",
+      "precio": 40000,
+      "imagen": "img/cara_guitarra_guitar_hero.jpg",
+      "imagenes": [
+        "img/cara_guitarra_guitar_hero.jpg",
+        "img/cara_caja_gh.jpg",
+        "img/cara_guitarra_guitar_hero.jpg"
+      ],
+      "descripcionCorta": "Guitarra de Guitar Hero para jugar en Xbox 360, Xbox One y PC.",
+      "descripcionLarga": "Guitarra inalámbrica compatible con Xbox 360, Xbox One y PC, ideal para los juegos de la saga Guitar Hero y Rock Band.",
+      "compatibilidad": "Xbox 360 / Xbox One / PC"
+    },
+    {
+      "id": 7,
+      "codigo": "FIG-001",
+      "nombre": "Amiibo Bowser",
+      "categoria": "figura",
+      "precio": 25000,
+      "imagen": "img/cara_amiibo_bowser.jpg",
+      "imagenes": [
+        "img/cara_amiibo_bowser.jpg",
+        "img/cara_amiibo_sincaja.png",
+        "img/image-placeholder.svg"
+      ],
+      "descripcionCorta": "Figura interactiva compatible con juegos de Nintendo Switch.",
+      "descripcionLarga": "Amiibo de Bowser, compatible con distintos juegos de Nintendo Switch que soportan funciones de Amiibo, como desbloqueo de contenido o personajes.",
+      "franquicia": "Super Mario / Nintendo"
+    },
+    {
+      "id": 8,
+      "codigo": "FIG-002",
+      "nombre": "Funko Pop Kratos",
+      "categoria": "figura",
+      "precio": 15000,
+      "imagen": "img/cara_funko_pop_kratos.jpg",
+      "imagenes": [
+        "img/cara_funko_pop_kratos.jpg"
+      ],
+      "descripcionCorta": "Figura coleccionable de Kratos de God of War.",
+      "descripcionLarga": "Figura coleccionable Funko Pop de Kratos, protagonista de la saga God of War. Ideal para exhibir junto a otros coleccionables de la franquicia.",
+      "franquicia": "God of War"
+    }
+  ],
+  "inventario": [
+    {
+      "id": 1,
+      "productoId": 1,
+      "stock": 15,
+      "stockCritico": null
+    },
+    {
+      "id": 2,
+      "productoId": 2,
+      "stock": 999,
+      "stockCritico": null
+    },
+    {
+      "id": 3,
+      "productoId": 3,
+      "stock": 6,
+      "stockCritico": null
+    },
+    {
+      "id": 4,
+      "productoId": 4,
+      "stock": 9,
+      "stockCritico": null
+    },
+    {
+      "id": 5,
+      "productoId": 5,
+      "stock": 30,
+      "stockCritico": null
+    },
+    {
+      "id": 6,
+      "productoId": 6,
+      "stock": 8,
+      "stockCritico": null
+    },
+    {
+      "id": 7,
+      "productoId": 7,
+      "stock": 20,
+      "stockCritico": null
+    },
+    {
+      "id": 8,
+      "productoId": 8,
+      "stock": 25,
+      "stockCritico": null
+    }
+  ],
   "usuarios": [],
   "ordenes": []
 }
