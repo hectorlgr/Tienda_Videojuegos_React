@@ -1,8 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
-import ImageWithFallback from '../components/common/ImageWithFallback'
+import ProductGallery from '../components/store/ProductGallery'
 import { useProductDetail } from '../hooks/useProductDetail'
 import { ProductNotFoundError } from '../services/productService'
-import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
 
 const optionalFields = [
@@ -70,12 +69,7 @@ export default function ProductDetailPage() {
         <div className="container">
           <div className="row gy-4">
             <div className="col-md-5">
-              <div className="detail-main-image">
-                <ImageWithFallback
-                  src={product.imagen ? publicAsset(product.imagen) : undefined}
-                  alt={product.nombre}
-                />
-              </div>
+              <ProductGallery key={product.id} product={product} />
             </div>
             <div className="col-md-7">
               <div className="product-details">
