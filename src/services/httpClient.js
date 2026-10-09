@@ -8,7 +8,19 @@ export class HttpError extends Error {
   }
 }
 
-export async function getJson(resource, query = {}) {
+export function getJson(resource, query = {}) {
+  return requestJson(resource, query)
+}
+
+export function postJson(resource, data) {
+  return requestJson(resource, {}, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+}
+
+async function requestJson(resource, query, options = {}) {
   const url = new URL(resource.replace(/^\/+/, ''), API_BASE_URL)
 
   for (const [key, value] of Object.entries(query)) {
@@ -18,7 +30,10 @@ export async function getJson(resource, query = {}) {
   let response
 
   try {
-    response = await fetch(url, { headers: { Accept: 'application/json' } })
+    response = await fetch(url, {
+      ...options,
+      headers: { Accept: 'application/json', ...options.headers },
+    })
   } catch (cause) {
     throw new Error(
       `No se pudo conectar con la API en ${url.origin}. Comprueba que JSON Server esté disponible.`,

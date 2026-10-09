@@ -1,4 +1,8 @@
-import { getJson } from './httpClient.js'
+import { getJson, postJson } from './httpClient.js'
+
+export function createUser(userData) {
+  return postJson('usuarios', userData)
+}
 
 export async function findUserByEmail(email) {
   const normalizedEmail = email.trim().toLowerCase()
