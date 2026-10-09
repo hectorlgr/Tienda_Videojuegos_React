@@ -412,7 +412,7 @@ a:focus-visible, button:focus-visible {
 
 .cart-line {
   display: grid;
-  grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1.5fr);
+  grid-template-columns: 80px minmax(0, 1fr) minmax(0, 2fr);
   align-items: center;
   gap: 20px;
   padding: 20px;
@@ -433,7 +433,7 @@ a:focus-visible, button:focus-visible {
 
 .cart-line-facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin: 0;
   overflow-wrap: anywhere;
@@ -452,6 +452,24 @@ a:focus-visible, button:focus-visible {
 
 .cart-stock-available { color: #23723c; }
 .cart-stock-empty { color: #b42332; }
+
+.cart-products-subtotal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin: 24px 0 0;
+  padding: 20px;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  background: #fbfbfc;
+}
+
+.cart-products-subtotal dd {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
 
 @media (max-width: 991px) {
   .cart-line {

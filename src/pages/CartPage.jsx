@@ -3,9 +3,11 @@ import ImageWithFallback from '../components/common/ImageWithFallback'
 import { useCartDetails } from '../hooks/useCartDetails'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
+import { calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 
 function CartLine({ line }) {
   const { productoId, cantidad, product, stock } = line
+  const subtotal = calculateLineSubtotal(line)
   const image = (
     <ImageWithFallback
       src={product?.imagen ? publicAsset(product.imagen) : undefined}
@@ -23,7 +25,7 @@ function CartLine({ line }) {
       <dl className="cart-line-facts">
         <div>
           <dt>Precio unitario</dt>
-          <dd>{product ? formatCLP(product.precio) : 'No disponible'}</dd>
+          <dd>{isValidPrice(product?.precio) ? formatCLP(product.precio) : 'No disponible'}</dd>
         </div>
         <div>
           <dt>Cantidad</dt>
@@ -35,6 +37,10 @@ function CartLine({ line }) {
             {stock > 0 ? `Disponible · ${stock} unidades` : 'Agotado'}
           </dd>
         </div>
+        <div>
+          <dt>Subtotal</dt>
+          <dd>{subtotal !== null ? formatCLP(subtotal) : 'No disponible'}</dd>
+        </div>
       </dl>
     </li>
   )
@@ -42,6 +48,7 @@ function CartLine({ line }) {
 
 export default function CartPage() {
   const { lines, loading, error } = useCartDetails()
+  const productsSubtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
 
   return (
     <>
@@ -67,9 +74,15 @@ export default function CartPage() {
             ) : lines.length === 0 ? (
               <p className="catalog-state" role="status">Tu carrito está vacío.</p>
             ) : (
-              <ul className="cart-lines" aria-label="Productos del carrito">
-                {lines.map(line => <CartLine key={line.productoId} line={line} />)}
-              </ul>
+              <>
+                <ul className="cart-lines" aria-label="Productos del carrito">
+                  {lines.map(line => <CartLine key={line.productoId} line={line} />)}
+                </ul>
+                <dl className="cart-products-subtotal">
+                  <dt>Subtotal productos</dt>
+                  <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
+                </dl>
+              </>
             )}
           </div>
           <Link className="btn btn-outline-dark mt-3" to="/productos">Ver productos</Link>
