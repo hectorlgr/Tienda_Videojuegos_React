@@ -8,7 +8,7 @@ import { useCartDetails } from '../hooks/useCartDetails'
 import { useCart } from '../hooks/useCart'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
-import { calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
+import { calculateCartTotal, calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 
 function CartLine({ line }) {
   const { removeItem } = useCart()
@@ -76,6 +76,7 @@ export default function CartPage() {
   const selectedRegion = SHIPPING_REGIONS.find(region => region.id === destination.regionId)
   const shippingCost = selectedRegion?.costoEnvio ?? null
   const productsSubtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
+  const total = calculateCartTotal(productsSubtotal, shippingCost)
 
   // El destino es solo de interfaz y se reinicia al quedar vacío el carrito.
   if (items.length === 0 && (destination.regionId || destination.comuna)) {
@@ -119,7 +120,12 @@ export default function CartPage() {
                     <dt>Envío</dt>
                     <dd>{shippingCost !== null ? formatCLP(shippingCost) : 'Selecciona una región'}</dd>
                   </div>
+                  <div className="cart-total">
+                    <dt>Total</dt>
+                    <dd>{total !== null ? formatCLP(total) : 'Por calcular'}</dd>
+                  </div>
                 </dl>
+                <button type="button" className="btn btn-success w-100 fw-bold py-2 mt-3 cart-pay">PAY</button>
                 <ShippingDestination
                   regionId={destination.regionId}
                   comuna={destination.comuna}

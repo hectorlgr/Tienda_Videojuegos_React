@@ -459,7 +459,8 @@ a:focus-visible, button:focus-visible {
 }
 
 .cart-line-remove:focus-visible,
-.cart-clear:focus-visible {
+.cart-clear:focus-visible,
+.cart-pay:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 4px;
 }
@@ -504,6 +505,18 @@ a:focus-visible, button:focus-visible {
 .cart-products-subtotal dd {
   margin: 0;
   font-size: 18px;
+  font-weight: 700;
+}
+
+.cart-total {
+  padding-top: 16px;
+  border-top: 1px solid #e4e7ed;
+  align-items: baseline;
+}
+
+.cart-total dt,
+.cart-products-subtotal .cart-total dd {
+  font-size: 22px;
   font-weight: 700;
 }
 

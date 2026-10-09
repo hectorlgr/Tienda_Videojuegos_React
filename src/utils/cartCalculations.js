@@ -16,3 +16,9 @@ export function calculateProductsSubtotal(lines = []) {
   const subtotal = lines.reduce((sum, line) => sum + (calculateLineSubtotal(line) ?? 0), 0)
   return Number.isFinite(subtotal) ? subtotal : null
 }
+
+export function calculateCartTotal(productsSubtotal, shippingCost) {
+  if (!isValidPrice(productsSubtotal) || !isValidPrice(shippingCost)) return null
+  const total = productsSubtotal + shippingCost
+  return Number.isFinite(total) ? total : null
+}
