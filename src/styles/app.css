@@ -502,6 +502,27 @@ a:focus-visible, button:focus-visible {
   font-weight: 700;
 }
 
+.shipping-destination {
+  min-width: 0;
+  margin: 24px 0 0;
+  padding: 20px;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+}
+
+.shipping-destination legend {
+  float: none;
+  width: auto;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.shipping-destination select:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 3px;
+}
+
 @media (max-width: 991px) {
   .cart-line {
     grid-template-columns: 80px minmax(0, 1fr);

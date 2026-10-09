@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import ImageWithFallback from '../components/common/ImageWithFallback'
 import CartQuantityControl from '../components/store/CartQuantityControl'
+import ShippingDestination from '../components/store/ShippingDestination'
 import { useCartDetails } from '../hooks/useCartDetails'
 import { useCart } from '../hooks/useCart'
 import { publicAsset } from '../utils/assets'
@@ -103,6 +104,7 @@ export default function CartPage() {
                   <dt>Subtotal productos</dt>
                   <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
                 </dl>
+                <ShippingDestination />
                 <button type="button" className="btn btn-outline-danger cart-clear mt-3" onClick={clearCart}>
                   Vaciar carrito
                 </button>
