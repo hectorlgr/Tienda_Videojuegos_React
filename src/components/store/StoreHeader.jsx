@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CATALOG_CATEGORIES } from '../../config/catalogCategories'
+import { useCart } from '../../hooks/useCart'
 import BrandLogo from '../common/BrandLogo'
 import TopBar from '../common/TopBar'
 
@@ -48,6 +49,7 @@ function StoreSearchForm() {
 
 export default function StoreHeader() {
   const location = useLocation()
+  const { totalItems } = useCart()
 
   return (
     <header>
@@ -65,7 +67,11 @@ export default function StoreHeader() {
             <div className="col-lg-3">
               <div className="header-ctn">
                 <div>
-                  <Link to="/carrito"><i className="fa fa-shopping-cart" aria-hidden="true" /><span>Mi Carrito</span></Link>
+                  <Link to="/carrito" aria-label={`Mi carrito, ${totalItems} ${totalItems === 1 ? 'unidad' : 'unidades'}`}>
+                    <i className="fa fa-shopping-cart" aria-hidden="true" />
+                    <span>Mi Carrito</span>
+                    <span className="qty" aria-hidden="true">{totalItems}</span>
+                  </Link>
                 </div>
               </div>
             </div>
