@@ -618,3 +618,19 @@ a:focus-visible, button:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 4px;
 }
+
+.register-page .contenedor-formulario {
+  max-width: 720px;
+}
+
+.register-page .form-control:focus-visible,
+.register-page .form-select:focus-visible {
+  border-color: #8a2be2;
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
+  outline: none;
+}
+
+.register-page button:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
