@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { CartContext } from './CartContext'
 import { assertNumericId } from '../utils/ids'
 import { persistCart, readCart } from '../utils/cartStorage'
+import { getInventory } from '../services/inventoryService'
+import { reconcileCart } from '../utils/reconcileCart'
 
 function assertQuantity(quantity, allowRemoval = false) {
   if (!Number.isSafeInteger(quantity) || (!allowRemoval && quantity <= 0)) {
@@ -12,7 +14,30 @@ function assertQuantity(quantity, allowRemoval = false) {
 }
 
 export default function CartProvider({ children }) {
-  const [items, setItems] = useState(readCart)
+  const [restoredItems] = useState(readCart)
+  const [items, setItems] = useState(restoredItems)
+
+  useEffect(() => {
+    if (restoredItems.length === 0) return
+    let active = true
+
+    async function reconcileRestoredItems() {
+      try {
+        const inventory = await getInventory()
+        if (!active) return
+        const reconciled = reconcileCart(restoredItems, inventory)
+        if (reconciled === restoredItems) return
+
+        // Esta fase corrige solo la restauración, nunca operaciones posteriores.
+        setItems(current => current === restoredItems ? reconciled : current)
+      } catch {
+        // Un fallo de inventario no significa que los productos estén agotados.
+      }
+    }
+
+    reconcileRestoredItems()
+    return () => { active = false }
+  }, [restoredItems])
 
   useEffect(() => {
     persistCart(items)
