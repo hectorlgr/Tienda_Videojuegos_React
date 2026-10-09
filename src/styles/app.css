@@ -383,6 +383,11 @@ a:focus-visible, button:focus-visible {
   outline-offset: 3px;
 }
 
+.detail-add-to-cart:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 @media (max-width: 991px) {
   .header-logo, .header-ctn {
     float: none;

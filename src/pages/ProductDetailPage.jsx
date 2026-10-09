@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductGallery from '../components/store/ProductGallery'
 import QuantitySelector from '../components/store/QuantitySelector'
+import DetailAddToCartButton from '../components/store/DetailAddToCartButton'
 import { useProductDetail } from '../hooks/useProductDetail'
 import { ProductNotFoundError } from '../services/productService'
 import { formatCLP } from '../utils/currency'
@@ -111,6 +112,12 @@ export default function ProductDetailPage() {
                   min={available ? 1 : 0}
                   max={stock}
                   disabled={!available}
+                />
+                <DetailAddToCartButton
+                  key={product.id}
+                  productId={product.id}
+                  quantity={quantity}
+                  available={available}
                 />
                 <Link className="btn btn-outline-dark mt-3" to="/productos">Volver al catálogo</Link>
               </div>
