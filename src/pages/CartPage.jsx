@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ImageWithFallback from '../components/common/ImageWithFallback'
+import CartQuantityControl from '../components/store/CartQuantityControl'
 import { useCartDetails } from '../hooks/useCartDetails'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
@@ -27,9 +28,18 @@ function CartLine({ line }) {
           <dt>Precio unitario</dt>
           <dd>{isValidPrice(product?.precio) ? formatCLP(product.precio) : 'No disponible'}</dd>
         </div>
-        <div>
-          <dt>Cantidad</dt>
-          <dd>{cantidad}</dd>
+        <div className="cart-line-quantity">
+          <dt className={product && stock > 0 ? 'visually-hidden' : undefined}>Cantidad</dt>
+          <dd>
+            {product && stock > 0 ? (
+              <CartQuantityControl
+                productoId={productoId}
+                cantidad={cantidad}
+                stock={stock}
+                productName={product.nombre}
+              />
+            ) : cantidad}
+          </dd>
         </div>
         <div>
           <dt>Disponibilidad</dt>
