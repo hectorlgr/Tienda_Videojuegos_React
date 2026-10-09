@@ -67,6 +67,7 @@ function CartLine({ line }) {
 }
 
 export default function CartPage() {
+  const { clearCart } = useCart()
   const { lines, loading, error } = useCartDetails()
   const productsSubtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
 
@@ -102,6 +103,9 @@ export default function CartPage() {
                   <dt>Subtotal productos</dt>
                   <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
                 </dl>
+                <button type="button" className="btn btn-outline-danger cart-clear mt-3" onClick={clearCart}>
+                  Vaciar carrito
+                </button>
               </>
             )}
           </div>

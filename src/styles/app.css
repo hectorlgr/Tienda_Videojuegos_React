@@ -458,7 +458,8 @@ a:focus-visible, button:focus-visible {
   justify-self: end;
 }
 
-.cart-line-remove:focus-visible {
+.cart-line-remove:focus-visible,
+.cart-clear:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 4px;
 }
