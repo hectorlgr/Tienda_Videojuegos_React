@@ -138,6 +138,17 @@ a:focus-visible, button:focus-visible {
   color: #fff;
 }
 
+.admin-user {
+  min-width: 0;
+  max-width: 100%;
+  color: #fff;
+}
+
+.admin-user-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .admin-footer .copyright {
   margin-top: 0;
 }
