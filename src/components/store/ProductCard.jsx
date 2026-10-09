@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../../hooks/useCart'
 import ImageWithFallback from '../common/ImageWithFallback'
 import { publicAsset } from '../../utils/assets'
 import { formatCLP } from '../../utils/currency'
@@ -11,8 +13,31 @@ const categoryLabels = {
 }
 
 export default function ProductCard({ product }) {
+  const { addItem } = useCart()
+  const [status, setStatus] = useState('idle')
+  const pending = useRef(false)
+  const mounted = useRef(false)
   const available = product.stock > 0
   const productUrl = `/productos/${product.id}`
+
+  useEffect(() => {
+    mounted.current = true
+    return () => { mounted.current = false }
+  }, [])
+
+  async function handleAdd() {
+    if (!available || pending.current) return
+    pending.current = true
+    setStatus('adding')
+    try {
+      await addItem(product.id, 1)
+      if (mounted.current) setStatus('idle')
+    } catch {
+      if (mounted.current) setStatus('error')
+    } finally {
+      pending.current = false
+    }
+  }
 
   return (
     <article className="product catalog-product">
@@ -38,9 +63,22 @@ export default function ProductCard({ product }) {
         </p>
       </div>
       <div className="add-to-cart">
-        <button className="add-to-cart-btn" type="button" disabled title="Carrito no disponible todavía">
-          <i className="fa fa-shopping-cart" aria-hidden="true" /> Añadir al carrito
+        <button
+          className="add-to-cart-btn"
+          type="button"
+          disabled={!available || status === 'adding'}
+          aria-label={`Agregar ${product.nombre} al carrito`}
+          aria-busy={status === 'adding'}
+          onClick={handleAdd}
+        >
+          <i className="fa fa-shopping-cart" aria-hidden="true" />{' '}
+          {status === 'adding' ? 'Agregando…' : 'Añadir al carrito'}
         </button>
+        {status === 'error' && (
+          <p className="catalog-cart-error" role="alert">
+            No fue posible agregar {product.nombre}. Inténtalo nuevamente.
+          </p>
+        )}
       </div>
     </article>
   )

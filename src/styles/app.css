@@ -216,19 +216,22 @@ a:focus-visible, button:focus-visible {
   transform: none;
 }
 
-.product.catalog-product .add-to-cart-btn:disabled {
+.product.catalog-product .add-to-cart .add-to-cart-btn {
   width: 100%;
   height: auto;
   min-height: 40px;
   padding: 8px 12px;
   font-size: 12px;
+}
+
+.product.catalog-product .add-to-cart .add-to-cart-btn:disabled {
   background: #646473;
   color: #fff;
   border-color: transparent;
   cursor: not-allowed;
 }
 
-.product.catalog-product .add-to-cart-btn:disabled > i {
+.product.catalog-product .add-to-cart .add-to-cart-btn > i {
   position: static;
   width: auto;
   height: auto;
@@ -236,6 +239,12 @@ a:focus-visible, button:focus-visible {
   color: inherit;
   opacity: 1;
   visibility: visible;
+}
+
+.catalog-cart-error {
+  margin: 10px 0 0;
+  color: #fff;
+  font-size: 12px;
 }
 
 /* Detalle básico: una imagen principal y la información del producto. */
