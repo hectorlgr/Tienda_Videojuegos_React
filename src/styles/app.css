@@ -453,6 +453,16 @@ a:focus-visible, button:focus-visible {
 .cart-stock-available { color: #23723c; }
 .cart-stock-empty { color: #b42332; }
 
+.cart-line-remove {
+  grid-column: 1 / -1;
+  justify-self: end;
+}
+
+.cart-line-remove:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
+
 .cart-quantity-control .quantity-selector {
   margin: 0;
   flex-direction: column;

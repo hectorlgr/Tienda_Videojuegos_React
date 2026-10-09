@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom'
 import ImageWithFallback from '../components/common/ImageWithFallback'
 import CartQuantityControl from '../components/store/CartQuantityControl'
 import { useCartDetails } from '../hooks/useCartDetails'
+import { useCart } from '../hooks/useCart'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
 import { calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 
 function CartLine({ line }) {
+  const { removeItem } = useCart()
   const { productoId, cantidad, product, stock } = line
   const subtotal = calculateLineSubtotal(line)
   const image = (
@@ -52,6 +54,14 @@ function CartLine({ line }) {
           <dd>{subtotal !== null ? formatCLP(subtotal) : 'No disponible'}</dd>
         </div>
       </dl>
+      <button
+        type="button"
+        className="btn btn-outline-danger cart-line-remove"
+        aria-label={`Eliminar ${product ? product.nombre : 'producto no disponible'} del carrito`}
+        onClick={() => removeItem(productoId)}
+      >
+        <i className="fa fa-trash" aria-hidden="true" /> Eliminar
+      </button>
     </li>
   )
 }
