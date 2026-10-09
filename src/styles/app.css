@@ -350,6 +350,39 @@ a:focus-visible, button:focus-visible {
   margin: 0;
 }
 
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.quantity-selector label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.quantity-selector .input-number {
+  width: 100px;
+}
+
+.quantity-selector button {
+  padding: 0;
+  line-height: 18px;
+}
+
+.quantity-selector :disabled {
+  color: #757575;
+  background: #f4f4f5;
+  cursor: not-allowed;
+}
+
+.quantity-selector input:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 3px;
+}
+
 @media (max-width: 991px) {
   .header-logo, .header-ctn {
     float: none;

@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductGallery from '../components/store/ProductGallery'
+import QuantitySelector from '../components/store/QuantitySelector'
 import { useProductDetail } from '../hooks/useProductDetail'
 import { ProductNotFoundError } from '../services/productService'
 import { formatCLP } from '../utils/currency'
@@ -33,6 +35,16 @@ export default function ProductDetailPage() {
   const productId = Number(id)
   const validId = Number.isSafeInteger(productId) && productId > 0
   const { product, loading, error } = useProductDetail(productId)
+  const stock = product?.stock ?? 0
+  const [selection, setSelection] = useState({ productId, quantity: stock > 0 ? 1 : 0 })
+  const quantity = stock > 0
+    ? Object.is(selection.productId, productId) ? Math.min(stock, Math.max(1, selection.quantity)) : 1
+    : 0
+
+  // Reinicia por producto y guarda cualquier ajuste al stock para evitar cantidades obsoletas.
+  if (!Object.is(selection.productId, productId) || selection.quantity !== quantity) {
+    setSelection({ productId, quantity })
+  }
 
   if (!validId) {
     return <DetailStatus title="ID de producto inválido" description="El enlace no contiene un identificador de producto válido." />
@@ -93,6 +105,13 @@ export default function ProductDetailPage() {
                     ))}
                   </dl>
                 )}
+                <QuantitySelector
+                  value={quantity}
+                  onChange={next => setSelection({ productId, quantity: next })}
+                  min={available ? 1 : 0}
+                  max={stock}
+                  disabled={!available}
+                />
                 <Link className="btn btn-outline-dark mt-3" to="/productos">Volver al catálogo</Link>
               </div>
             </div>
