@@ -485,15 +485,20 @@ a:focus-visible, button:focus-visible {
 }
 
 .cart-products-subtotal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
   gap: 12px 24px;
   margin: 24px 0 0;
   padding: 20px;
   border: 1px solid #e4e7ed;
   border-radius: 6px;
   background: #fbfbfc;
+}
+
+.cart-products-subtotal > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
 }
 
 .cart-products-subtotal dd {

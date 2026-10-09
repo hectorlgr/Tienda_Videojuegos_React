@@ -2,6 +2,7 @@ export const SHIPPING_REGIONS = [
   {
     nombre: "Región Metropolitana",
     id: "metropolitana",
+    costoEnvio: 3000,
     comunas: [
       "Alhué", "Buin", "Calera de Tango", "Cerrillos", "Cerro Navia",
       "Colina", "Conchalí", "Curacaví", "El Bosque", "El Monte",
@@ -19,6 +20,7 @@ export const SHIPPING_REGIONS = [
   {
     nombre: "Región de Valparaíso",
     id: "valparaiso",
+    costoEnvio: 7500,
     comunas: [
       "Algarrobo", "Cabildo", "Calle Larga", "Cartagena", "Casablanca",
       "Catemu", "Concón", "El Quisco", "El Tabo", "Hijuelas",

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { SHIPPING_REGIONS } from '../config/shippingRegions'
 import ImageWithFallback from '../components/common/ImageWithFallback'
 import CartQuantityControl from '../components/store/CartQuantityControl'
 import ShippingDestination from '../components/store/ShippingDestination'
@@ -68,9 +70,17 @@ function CartLine({ line }) {
 }
 
 export default function CartPage() {
-  const { clearCart } = useCart()
+  const { clearCart, items } = useCart()
   const { lines, loading, error } = useCartDetails()
+  const [destination, setDestination] = useState({ regionId: '', comuna: '' })
+  const selectedRegion = SHIPPING_REGIONS.find(region => region.id === destination.regionId)
+  const shippingCost = selectedRegion?.costoEnvio ?? null
   const productsSubtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
+
+  // El destino es solo de interfaz y se reinicia al quedar vacío el carrito.
+  if (items.length === 0 && (destination.regionId || destination.comuna)) {
+    setDestination({ regionId: '', comuna: '' })
+  }
 
   return (
     <>
@@ -101,10 +111,21 @@ export default function CartPage() {
                   {lines.map(line => <CartLine key={line.productoId} line={line} />)}
                 </ul>
                 <dl className="cart-products-subtotal">
-                  <dt>Subtotal productos</dt>
-                  <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
+                  <div>
+                    <dt>Subtotal productos</dt>
+                    <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
+                  </div>
+                  <div className="cart-shipping-cost">
+                    <dt>Envío</dt>
+                    <dd>{shippingCost !== null ? formatCLP(shippingCost) : 'Selecciona una región'}</dd>
+                  </div>
                 </dl>
-                <ShippingDestination />
+                <ShippingDestination
+                  regionId={destination.regionId}
+                  comuna={destination.comuna}
+                  onRegionChange={regionId => setDestination({ regionId, comuna: '' })}
+                  onComunaChange={comuna => setDestination(current => ({ ...current, comuna }))}
+                />
                 <button type="button" className="btn btn-outline-danger cart-clear mt-3" onClick={clearCart}>
                   Vaciar carrito
                 </button>
