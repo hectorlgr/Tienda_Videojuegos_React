@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { SHIPPING_REGIONS } from '../config/shippingRegions'
 import { formatRun, validateRegistration } from '../utils/registerValidation'
+import { createUser, findUserByEmail, findUserByRun } from '../services/userService'
 
 const initialValues = {
   run: '', nombre: '', apellidos: '', correo: '', password: '',
@@ -19,9 +20,13 @@ const fields = [
 ]
 
 export default function RegisterPage() {
+  const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const submittingRef = useRef(false)
   const region = SHIPPING_REGIONS.find(option => option.id === values.region)
   const errorCount = Object.keys(errors).length
 
@@ -33,14 +38,56 @@ export default function RegisterPage() {
       ...(name === 'region' ? { comuna: '' } : {}),
     }
     setValues(nextValues)
+    setSubmitError('')
     if (submitted) setErrors(validateRegistration(nextValues))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
+    if (submittingRef.current) return
+
     setSubmitted(true)
-    setErrors(validateRegistration(values))
-    // Esta fase termina en la validación local; todavía no se crea una cuenta.
+    setSubmitError('')
+    const localErrors = validateRegistration(values)
+    setErrors(localErrors)
+    if (Object.keys(localErrors).length > 0) return
+
+    submittingRef.current = true
+    setSubmitting(true)
+
+    const userData = {
+      run: formatRun(values.run),
+      nombre: values.nombre.trim(),
+      apellidos: values.apellidos.trim(),
+      correo: values.correo.trim().toLowerCase(),
+      password: values.password,
+      direccion: values.direccion.trim(),
+      region: values.region.trim(),
+      comuna: values.comuna.trim(),
+      rol: 'cliente',
+    }
+
+    try {
+      const [emailUser, runUser] = await Promise.all([
+        findUserByEmail(userData.correo),
+        findUserByRun(userData.run),
+      ])
+      const duplicateErrors = {}
+      if (emailUser) duplicateErrors.correo = 'Este correo electrónico ya está registrado.'
+      if (runUser) duplicateErrors.run = 'Este RUN ya está registrado.'
+      if (Object.keys(duplicateErrors).length > 0) {
+        setErrors(duplicateErrors)
+        return
+      }
+
+      await createUser(userData)
+      navigate('/login', { replace: true })
+    } catch {
+      setSubmitError('No fue posible completar el registro. Inténtalo nuevamente.')
+    } finally {
+      submittingRef.current = false
+      setSubmitting(false)
+    }
   }
 
   function controlProps(name, className = 'form-control') {
@@ -55,6 +102,7 @@ export default function RegisterPage() {
       value: values[name],
       onChange: handleChange,
       required: true,
+      disabled: submitting,
       className: `${className}${errors[name] ? ' is-invalid' : ''}`,
       'aria-invalid': errors[name] ? true : undefined,
       'aria-describedby': descriptions || undefined,
@@ -77,9 +125,10 @@ export default function RegisterPage() {
               <h1 id="register-title" className="mb-0 fs-6 text-uppercase fw-semibold">Registro de usuario</h1>
             </div>
             <div className="card-body p-4">
-              <form onSubmit={handleSubmit} noValidate>
+              <form onSubmit={handleSubmit} noValidate aria-busy={submitting}>
                 <div role="alert">
                   {errorCount > 0 && <p className="alert alert-danger py-2">Revisa los campos indicados: {errorCount} con errores.</p>}
+                  {submitError && <p className="alert alert-danger py-2">{submitError}</p>}
                 </div>
                 <div className="row g-3">
                   {fields.map(({ name, label, half, ...inputProps }) => (
@@ -104,7 +153,7 @@ export default function RegisterPage() {
                   </div>
                   <div className="col-12 col-md-6">
                     <label htmlFor="register-comuna" className="form-label fw-semibold">Comuna</label>
-                    <select {...controlProps('comuna', 'form-select')} autoComplete="address-level2" disabled={!region}>
+                    <select {...controlProps('comuna', 'form-select')} autoComplete="address-level2" disabled={submitting || !region}>
                       <option value="">Selecciona una comuna</option>
                       {region?.comunas.map(name => <option key={name} value={name}>{name}</option>)}
                     </select>
@@ -112,7 +161,9 @@ export default function RegisterPage() {
                   </div>
                 </div>
                 <div className="d-grid mt-4">
-                  <button type="submit" className="btn btn-dark py-2">Registrarse</button>
+                  <button type="submit" className="btn btn-dark py-2" disabled={submitting}>
+                    {submitting ? 'Registrando...' : 'Registrarse'}
+                  </button>
                 </div>
                 <div className="text-center mt-3">
                   <span className="text-muted small">¿Ya tienes cuenta? </span>
