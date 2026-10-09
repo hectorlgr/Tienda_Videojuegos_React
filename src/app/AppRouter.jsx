@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import StoreLayout from '../layouts/StoreLayout'
 import AdminLayout from '../layouts/AdminLayout'
+import ProtectedRoute from '../components/common/ProtectedRoute'
 import HomePage from '../pages/HomePage'
 import ProductsPage from '../pages/ProductsPage'
 import ProductDetailPage from '../pages/ProductDetailPage'
@@ -28,12 +29,16 @@ export default function AppRouter() {
         <Route path="criticas" element={<ReviewsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
-      <Route path="admin" element={<AdminLayout />}>
-        <Route index element={<Navigate to="ordenes" replace />} />
-        <Route path="ordenes" element={<AdminOrdersPage />} />
-        <Route path="stock" element={<AdminStockPage />} />
-        <Route path="productos/nuevo" element={<AdminProductCreatePage />} />
-        <Route path="*" element={<NotFoundPage admin />} />
+      <Route element={<ProtectedRoute allowedRoles={['vendedor', 'administrador']} />}>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="ordenes" replace />} />
+          <Route path="ordenes" element={<AdminOrdersPage />} />
+          <Route element={<ProtectedRoute allowedRoles={['administrador']} redirectTo="/admin/ordenes" />}>
+            <Route path="stock" element={<AdminStockPage />} />
+            <Route path="productos/nuevo" element={<AdminProductCreatePage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage admin />} />
+        </Route>
       </Route>
     </Routes>
   )
