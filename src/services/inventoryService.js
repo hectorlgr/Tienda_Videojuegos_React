@@ -1,5 +1,5 @@
 import { assertNumericId } from '../utils/ids.js'
-import { getJson, patchJson, HttpError } from './httpClient.js'
+import { getJson, postJson, patchJson, HttpError } from './httpClient.js'
 
 export class InventoryNotFoundError extends Error {
   constructor(id, { by = 'product' } = {}) {
@@ -12,6 +12,19 @@ export class InventoryNotFoundError extends Error {
 
 export function getInventory() {
   return getJson('inventario')
+}
+
+export async function createInventory(inventoryData) {
+  const { productoId, stock, stockCritico } = inventoryData
+  assertNumericId(productoId)
+  if (!Number.isSafeInteger(stock) || stock < 0) {
+    throw new TypeError('El stock debe ser un número entero seguro mayor o igual a 0.')
+  }
+  if (stockCritico !== null && (!Number.isSafeInteger(stockCritico) || stockCritico < 0)) {
+    throw new TypeError('El stock crítico debe ser null o un número entero seguro mayor o igual a 0.')
+  }
+
+  return postJson('inventario', { productoId, stock, stockCritico })
 }
 
 export async function getInventoryByProductId(productId) {
