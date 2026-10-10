@@ -1,5 +1,11 @@
 import { assertNumericId } from '../utils/ids.js'
-import { getJson, HttpError } from './httpClient.js'
+import { getJson, postJson, HttpError } from './httpClient.js'
+
+const PRODUCT_FIELDS = [
+  'codigo', 'nombre', 'categoria', 'precio', 'imagen', 'imagenes',
+  'descripcionCorta', 'descripcionLarga', 'formato', 'plataforma',
+  'compatibilidad', 'franquicia',
+]
 
 export class ProductNotFoundError extends HttpError {
   constructor(productId) {
@@ -10,6 +16,15 @@ export class ProductNotFoundError extends HttpError {
 
 export function getProducts() {
   return getJson('productos')
+}
+
+export function createProduct(productData) {
+  const payload = Object.fromEntries(
+    PRODUCT_FIELDS.filter(field => Object.hasOwn(productData, field))
+      .map(field => [field, productData[field]]),
+  )
+
+  return postJson('productos', payload)
 }
 
 export async function getProductById(id) {
