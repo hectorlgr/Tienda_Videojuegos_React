@@ -182,6 +182,38 @@ a:focus-visible, button:focus-visible {
   margin-top: 0;
 }
 
+.admin-orders-page h1 {
+  font-size: clamp(24px, 4vw, 32px);
+}
+
+.admin-orders-table {
+  padding: 6px;
+  border: 1px solid #e4e7ed;
+}
+
+.admin-orders-table table {
+  min-width: 1200px;
+}
+
+.admin-orders-table th,
+.admin-orders-table td {
+  padding: 12px;
+  max-width: 240px;
+  overflow-wrap: anywhere;
+}
+
+.admin-orders-table .badge {
+  min-width: 90px;
+  white-space: normal;
+  text-align: left;
+}
+
+.admin-orders-table:focus-visible,
+.admin-orders-table button:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 2px;
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
