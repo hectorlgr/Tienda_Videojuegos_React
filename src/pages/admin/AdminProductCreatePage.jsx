@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CATALOG_CATEGORIES } from '../../config/catalogCategories'
 import { normalizeProductCode, validateProductForm } from '../../utils/productValidation'
+import { findProductByCode } from '../../services/productService'
 
 const initialValues = {
   product: {
@@ -35,22 +36,63 @@ export default function AdminProductCreatePage() {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [checking, setChecking] = useState(false)
+  const [codeError, setCodeError] = useState('')
+  const [checkError, setCheckError] = useState('')
+  const pendingRef = useRef(false)
+  const activeRef = useRef(false)
+  const currentCodeRef = useRef('')
+  const visibleErrors = { ...errors, ...(codeError ? { codigo: codeError } : {}) }
+
+  useEffect(() => {
+    activeRef.current = true
+    return () => { activeRef.current = false }
+  }, [])
 
   function changeValue(group, name, value) {
+    if (name === 'codigo') {
+      const code = normalizeProductCode(value)
+      if (code !== currentCodeRef.current) setCodeError('')
+      currentCodeRef.current = code
+    }
+    setCheckError('')
     const next = { ...values, [group]: { ...values[group], [name]: value } }
     setValues(next)
     if (submitted) setErrors(validateProductForm(next))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
+    if (pendingRef.current) return
     const next = {
       ...values,
       product: { ...values.product, codigo: normalizeProductCode(values.product.codigo) },
     }
     setValues(next)
     setSubmitted(true)
-    setErrors(validateProductForm(next))
+    const localErrors = validateProductForm(next)
+    setErrors(localErrors)
+    setCodeError('')
+    setCheckError('')
+    if (Object.keys(localErrors).length > 0) return
+
+    const code = next.product.codigo
+    currentCodeRef.current = code
+    pendingRef.current = true
+    setChecking(true)
+    try {
+      const product = await findProductByCode(code)
+      // Una respuesta tardía no corresponde a un código editado ni a una página desmontada.
+      if (!activeRef.current || currentCodeRef.current !== code) return
+      if (product) setCodeError('Este código ya está registrado.')
+    } catch {
+      if (activeRef.current && currentCodeRef.current === code) {
+        setCheckError('No fue posible comprobar el código. Inténtalo nuevamente.')
+      }
+    } finally {
+      pendingRef.current = false
+      if (activeRef.current) setChecking(false)
+    }
   }
 
   function renderField(group, field) {
@@ -60,9 +102,9 @@ export default function AdminProductCreatePage() {
       id, name, required, maxLength,
       value: values[group][name],
       onChange: event => changeValue(group, name, event.target.value),
-      className: `${options ? 'form-select' : 'form-control'}${errors[name] ? ' is-invalid' : ''}`,
-      'aria-invalid': errors[name] ? true : undefined,
-      'aria-describedby': [help && `${id}-help`, errors[name] && `${id}-error`].filter(Boolean).join(' ') || undefined,
+      className: `${options ? 'form-select' : 'form-control'}${visibleErrors[name] ? ' is-invalid' : ''}`,
+      'aria-invalid': visibleErrors[name] ? true : undefined,
+      'aria-describedby': [help && `${id}-help`, visibleErrors[name] && `${id}-error`].filter(Boolean).join(' ') || undefined,
     }
     return (
       <div className="col-12 col-md-6" key={name}>
@@ -88,7 +130,7 @@ export default function AdminProductCreatePage() {
           />
         )}
         {help && <p id={`${id}-help`} className="form-text mb-0">{help}</p>}
-        {errors[name] && <div id={`${id}-error`} className="invalid-feedback">{errors[name]}</div>}
+        {visibleErrors[name] && <div id={`${id}-error`} className="invalid-feedback">{visibleErrors[name]}</div>}
       </div>
     )
   }
@@ -102,12 +144,13 @@ export default function AdminProductCreatePage() {
             <h1 id="new-product-title" className="mb-0 fs-4">Nuevo producto</h1>
           </div>
           <div className="card-body p-3 p-md-4">
-            <p className="text-muted">En esta etapa solo se validan los datos localmente; no se guardan productos.</p>
-            <form onSubmit={handleSubmit} noValidate>
+            <p className="text-muted">En esta etapa se validan los datos y se comprueba el código; no se guardan productos.</p>
+            <form onSubmit={handleSubmit} noValidate aria-busy={checking}>
               <div role="alert">
-                {Object.keys(errors).length > 0 && (
-                  <p className="alert alert-danger">Revisa los campos indicados: {Object.keys(errors).length} con errores.</p>
+                {Object.keys(visibleErrors).length > 0 && (
+                  <p className="alert alert-danger">Revisa los campos indicados: {Object.keys(visibleErrors).length} con errores.</p>
                 )}
+                {checkError && <p className="alert alert-danger">{checkError}</p>}
               </div>
               <fieldset className="mb-4">
                 <legend className="fs-5 fw-semibold">Producto</legend>
@@ -117,7 +160,10 @@ export default function AdminProductCreatePage() {
                 <legend className="fs-5 fw-semibold">Inventario</legend>
                 <div className="row g-3">{inventoryFields.map(field => renderField('inventory', field))}</div>
               </fieldset>
-              <button type="submit" className="btn btn-dark w-100 py-2">Crear producto</button>
+              <p className="text-muted" role="status">{checking ? 'Comprobando código...' : ''}</p>
+              <button type="submit" className="btn btn-dark w-100 py-2" disabled={checking}>
+                {checking ? 'Comprobando...' : 'Crear producto'}
+              </button>
             </form>
           </div>
         </div>
