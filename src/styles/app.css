@@ -254,6 +254,23 @@ a:focus-visible, button:focus-visible {
   outline-offset: 2px;
 }
 
+.admin-product-create-page .card {
+  max-width: 960px;
+  margin: 0 auto;
+  overflow-wrap: anywhere;
+}
+
+.admin-product-create-page fieldset {
+  min-width: 0;
+}
+
+.admin-product-create-page .form-control:focus-visible,
+.admin-product-create-page .form-select:focus-visible,
+.admin-product-create-page button:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 3px;
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
