@@ -59,6 +59,35 @@ a:focus-visible, button:focus-visible {
   cursor: not-allowed;
 }
 
+.store-account {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 15px;
+  min-width: 0;
+  max-width: 100%;
+  color: #fff;
+}
+
+.store-account li {
+  min-width: 0;
+  max-width: 100%;
+  margin-right: 0;
+  overflow-wrap: anywhere;
+}
+
+.store-account button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.store-account button:hover {
+  color: #8a2be2;
+}
+
 .navigation-toggle {
   display: none;
   align-items: center;

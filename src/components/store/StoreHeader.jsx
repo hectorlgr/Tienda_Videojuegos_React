@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CATALOG_CATEGORIES } from '../../config/catalogCategories'
 import { useCart } from '../../hooks/useCart'
+import { useAuth } from '../../hooks/useAuth'
 import BrandLogo from '../common/BrandLogo'
 import TopBar from '../common/TopBar'
 
@@ -49,11 +50,33 @@ function StoreSearchForm() {
 
 export default function StoreHeader() {
   const location = useLocation()
+  const navigate = useNavigate()
   const { totalItems } = useCart()
+  const { user, isAuthenticated, logout } = useAuth()
+  const identity = user?.nombre?.trim() || user?.correo || 'Usuario'
+
+  function handleLogout() {
+    logout()
+    navigate('/', { replace: true })
+  }
 
   return (
     <header>
-      <TopBar showAccount />
+      <TopBar>
+        <ul className="header-links store-account">
+          {isAuthenticated ? (
+            <>
+              <li>Hola, {identity}</li>
+              <li><button type="button" onClick={handleLogout}>Cerrar sesión</button></li>
+            </>
+          ) : (
+            <>
+              <li><Link to="/login"><i className="fa fa-user-o" aria-hidden="true" /> Iniciar sesión</Link></li>
+              <li><Link to="/registro">Registrarse</Link></li>
+            </>
+          )}
+        </ul>
+      </TopBar>
       <div id="header">
         <div className="container">
           <div className="row align-items-center gy-3">
