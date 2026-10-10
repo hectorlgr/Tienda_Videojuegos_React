@@ -1,11 +1,12 @@
 import { useAdminStock } from '../../hooks/useAdminStock'
+import StockEditor from '../../components/admin/StockEditor'
 
 function displayValue(value) {
   return value == null || value === '' ? '—' : value
 }
 
 export default function AdminStockPage() {
-  const { rows, loading, error } = useAdminStock()
+  const { rows, loading, error, updateRowStock } = useAdminStock()
 
   return (
     <section className="section admin-stock-page" aria-labelledby="stock-title">
@@ -40,6 +41,7 @@ export default function AdminStockPage() {
                     <th scope="col" className="text-end">Stock actual</th>
                     <th scope="col" className="text-end">Stock crítico</th>
                     <th scope="col">Disponibilidad</th>
+                    <th scope="col">Actualizar stock</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,6 +61,17 @@ export default function AdminStockPage() {
                         <span className={`badge ${stock > 0 ? 'text-bg-success' : 'text-bg-secondary'}`}>
                           {stock > 0 ? 'Disponible' : 'Agotado'}
                         </span>
+                      </td>
+                      <td>
+                        {inventoryId === null ? '—' : (
+                          <StockEditor
+                            key={inventoryId}
+                            inventoryId={inventoryId}
+                            productName={displayValue(product.nombre)}
+                            stock={stock}
+                            onUpdated={updateRowStock}
+                          />
+                        )}
                       </td>
                     </tr>
                   ))}

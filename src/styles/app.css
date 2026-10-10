@@ -224,7 +224,7 @@ a:focus-visible, button:focus-visible {
 }
 
 .admin-stock-table table {
-  min-width: 760px;
+  min-width: 1020px;
 }
 
 .admin-stock-table th,
@@ -239,7 +239,17 @@ a:focus-visible, button:focus-visible {
   white-space: nowrap;
 }
 
-.admin-stock-table:focus-visible {
+.admin-stock-editor {
+  min-width: 220px;
+}
+
+.admin-stock-editor input {
+  width: 110px;
+}
+
+.admin-stock-table:focus-visible,
+.admin-stock-editor input:focus-visible,
+.admin-stock-editor button:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 2px;
 }

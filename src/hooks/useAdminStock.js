@@ -49,5 +49,14 @@ export function useAdminStock() {
     return () => { active = false }
   }, [])
 
-  return result
+  function updateRowStock(inventoryId, updatedInventory) {
+    setResult(current => ({
+      ...current,
+      rows: current.rows.map(row => row.inventoryId === inventoryId
+        ? { ...row, stock: updatedInventory.stock }
+        : row),
+    }))
+  }
+
+  return { ...result, updateRowStock }
 }
