@@ -214,6 +214,36 @@ a:focus-visible, button:focus-visible {
   outline-offset: 2px;
 }
 
+.admin-stock-page h1 {
+  font-size: clamp(24px, 4vw, 32px);
+}
+
+.admin-stock-table {
+  padding: 6px;
+  border: 1px solid #e4e7ed;
+}
+
+.admin-stock-table table {
+  min-width: 760px;
+}
+
+.admin-stock-table th,
+.admin-stock-table td {
+  padding: 12px;
+  max-width: 280px;
+  overflow-wrap: break-word;
+}
+
+.admin-stock-table thead th,
+.admin-stock-table td:first-child {
+  white-space: nowrap;
+}
+
+.admin-stock-table:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 2px;
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
