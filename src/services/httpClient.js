@@ -13,8 +13,16 @@ export function getJson(resource, query = {}) {
 }
 
 export function postJson(resource, data) {
+  return sendJson(resource, 'POST', data)
+}
+
+export function patchJson(resource, data) {
+  return sendJson(resource, 'PATCH', data)
+}
+
+function sendJson(resource, method, data) {
   return requestJson(resource, {}, {
-    method: 'POST',
+    method,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
