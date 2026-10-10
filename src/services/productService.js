@@ -18,6 +18,17 @@ export function getProducts() {
   return getJson('productos')
 }
 
+export async function findProductByCode(code) {
+  if (typeof code !== 'string' || code.trim() === '') {
+    throw new TypeError('El código debe ser un string no vacío.')
+  }
+
+  const normalizedCode = code.trim().toUpperCase()
+  const products = await getJson('productos', { codigo: normalizedCode })
+
+  return products[0] ?? null
+}
+
 export function createProduct(productData) {
   const payload = Object.fromEntries(
     PRODUCT_FIELDS.filter(field => Object.hasOwn(productData, field))
