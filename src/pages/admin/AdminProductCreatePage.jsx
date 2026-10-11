@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CATALOG_CATEGORIES } from '../../config/catalogCategories'
 import { normalizeProductCode, validateProductForm } from '../../utils/productValidation'
 import { findProductByCode } from '../../services/productService'
+import { createProductWithInventory, ProductInventoryCreationError } from '../../services/productCreationService'
 
 const initialValues = {
   product: {
@@ -33,12 +35,14 @@ const inventoryFields = [
 ]
 
 export default function AdminProductCreatePage() {
+  const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  const [checking, setChecking] = useState(false)
+  const [phase, setPhase] = useState('idle')
   const [codeError, setCodeError] = useState('')
-  const [checkError, setCheckError] = useState('')
+  const [submitError, setSubmitError] = useState('')
+  const pending = phase !== 'idle'
   const pendingRef = useRef(false)
   const activeRef = useRef(false)
   const currentCodeRef = useRef('')
@@ -55,7 +59,7 @@ export default function AdminProductCreatePage() {
       if (code !== currentCodeRef.current) setCodeError('')
       currentCodeRef.current = code
     }
-    setCheckError('')
+    setSubmitError('')
     const next = { ...values, [group]: { ...values[group], [name]: value } }
     setValues(next)
     if (submitted) setErrors(validateProductForm(next))
@@ -65,33 +69,67 @@ export default function AdminProductCreatePage() {
     event.preventDefault()
     if (pendingRef.current) return
     const next = {
-      ...values,
-      product: { ...values.product, codigo: normalizeProductCode(values.product.codigo) },
+      product: {
+        ...Object.fromEntries(Object.entries(values.product).map(([name, value]) => [name, value.trim()])),
+        codigo: normalizeProductCode(values.product.codigo),
+      },
+      inventory: {
+        stock: values.inventory.stock.trim(),
+        stockCritico: values.inventory.stockCritico.trim(),
+      },
     }
     setValues(next)
     setSubmitted(true)
     const localErrors = validateProductForm(next)
     setErrors(localErrors)
     setCodeError('')
-    setCheckError('')
+    setSubmitError('')
     if (Object.keys(localErrors).length > 0) return
 
     const code = next.product.codigo
     currentCodeRef.current = code
     pendingRef.current = true
-    setChecking(true)
+    setPhase('checking')
     try {
       const product = await findProductByCode(code)
       // Una respuesta tardía no corresponde a un código editado ni a una página desmontada.
       if (!activeRef.current || currentCodeRef.current !== code) return
-      if (product) setCodeError('Este código ya está registrado.')
-    } catch {
-      if (activeRef.current && currentCodeRef.current === code) {
-        setCheckError('No fue posible comprobar el código. Inténtalo nuevamente.')
+      if (product) {
+        setCodeError('Este código ya está registrado.')
+        return
+      }
+
+      const productData = {
+        codigo: code,
+        nombre: next.product.nombre,
+        categoria: next.product.categoria,
+        precio: Number(next.product.precio),
+        imagen: next.product.imagen,
+        imagenes: next.product.imagenes.split(/\r?\n/).map(line => line.trim()).filter(Boolean),
+        descripcionCorta: next.product.descripcionCorta,
+        descripcionLarga: next.product.descripcionLarga,
+        formato: next.product.formato,
+        plataforma: next.product.plataforma,
+        compatibilidad: next.product.compatibilidad,
+        franquicia: next.product.franquicia,
+      }
+      const inventoryData = {
+        stock: Number(next.inventory.stock),
+        stockCritico: next.inventory.stockCritico === '' ? null : Number(next.inventory.stockCritico),
+      }
+
+      setPhase('creating')
+      await createProductWithInventory(productData, inventoryData)
+      if (activeRef.current) navigate('/admin/stock', { replace: true })
+    } catch (error) {
+      if (activeRef.current) {
+        setSubmitError(error instanceof ProductInventoryCreationError
+          ? 'El producto fue creado, pero no fue posible registrar su inventario.'
+          : 'No fue posible crear el producto. Inténtalo nuevamente.')
       }
     } finally {
       pendingRef.current = false
-      if (activeRef.current) setChecking(false)
+      if (activeRef.current) setPhase('idle')
     }
   }
 
@@ -144,25 +182,27 @@ export default function AdminProductCreatePage() {
             <h1 id="new-product-title" className="mb-0 fs-4">Nuevo producto</h1>
           </div>
           <div className="card-body p-3 p-md-4">
-            <p className="text-muted">En esta etapa se validan los datos y se comprueba el código; no se guardan productos.</p>
-            <form onSubmit={handleSubmit} noValidate aria-busy={checking}>
+            <p className="text-muted">Completa los datos del producto y su inventario inicial.</p>
+            <form onSubmit={handleSubmit} noValidate aria-busy={pending}>
               <div role="alert">
                 {Object.keys(visibleErrors).length > 0 && (
                   <p className="alert alert-danger">Revisa los campos indicados: {Object.keys(visibleErrors).length} con errores.</p>
                 )}
-                {checkError && <p className="alert alert-danger">{checkError}</p>}
+                {submitError && <p className="alert alert-danger">{submitError}</p>}
               </div>
-              <fieldset className="mb-4">
+              <fieldset className="mb-4" disabled={pending}>
                 <legend className="fs-5 fw-semibold">Producto</legend>
                 <div className="row g-3">{productFields.map(field => renderField('product', field))}</div>
               </fieldset>
-              <fieldset className="mb-4">
+              <fieldset className="mb-4" disabled={pending}>
                 <legend className="fs-5 fw-semibold">Inventario</legend>
                 <div className="row g-3">{inventoryFields.map(field => renderField('inventory', field))}</div>
               </fieldset>
-              <p className="text-muted" role="status">{checking ? 'Comprobando código...' : ''}</p>
-              <button type="submit" className="btn btn-dark w-100 py-2" disabled={checking}>
-                {checking ? 'Comprobando...' : 'Crear producto'}
+              <p className="text-muted" role="status">
+                {phase === 'checking' ? 'Comprobando código...' : phase === 'creating' ? 'Creando producto e inventario...' : ''}
+              </p>
+              <button type="submit" className="btn btn-dark w-100 py-2" disabled={pending}>
+                {phase === 'checking' ? 'Comprobando...' : phase === 'creating' ? 'Creando...' : 'Crear producto'}
               </button>
             </form>
           </div>
