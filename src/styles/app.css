@@ -271,6 +271,42 @@ a:focus-visible, button:focus-visible {
   outline-offset: 3px;
 }
 
+.home-page h1 {
+  font-size: clamp(26px, 4vw, 36px);
+}
+
+.home-section-title {
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.home-category {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  padding: 24px 20px;
+  background: #7020ba;
+  color: #fff;
+  font-weight: 700;
+}
+
+.home-category span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.home-category:hover,
+.home-category:focus-visible {
+  background: #54178d;
+  color: #fff;
+}
+
+.home-page .product-name {
+  overflow-wrap: anywhere;
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
