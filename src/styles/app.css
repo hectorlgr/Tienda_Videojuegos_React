@@ -430,6 +430,38 @@ a:focus-visible, button:focus-visible {
   outline-offset: 3px;
 }
 
+.reviews-page {
+  overflow-wrap: anywhere;
+}
+
+.reviews-page h1 {
+  font-size: clamp(26px, 4vw, 36px);
+}
+
+.reviews-section-title {
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.reviews-featured-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.reviews-page .noticia-card h3 {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.reviews-page .noticia-card p {
+  line-height: 1.7;
+}
+
+.reviews-page .noticia-card p:last-child {
+  margin-bottom: 0;
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
