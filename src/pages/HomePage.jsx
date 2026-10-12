@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/store/ProductCard'
+import ImageWithFallback from '../components/common/ImageWithFallback'
 import { CATALOG_CATEGORIES } from '../config/catalogCategories'
 import { useCatalogProducts } from '../hooks/useCatalogProducts'
+import { publicAsset } from '../utils/assets'
 
 // Selección de la Home antigua; los datos comerciales proceden del catálogo real.
 const FEATURED_PRODUCT_IDS = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -12,6 +14,13 @@ const categoryIcons = {
   figura: 'fa-star',
 }
 
+const socialReferences = [
+  ['fa-facebook', 'Facebook'],
+  ['fa-twitter', 'Twitter'],
+  ['fa-instagram', 'Instagram'],
+  ['fa-pinterest', 'Pinterest'],
+]
+
 export default function HomePage() {
   const { products, loading, error } = useCatalogProducts()
   const featuredProducts = FEATURED_PRODUCT_IDS
@@ -21,11 +30,22 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <title>Bienvenido a CheckPoint Store — CheckPoint Store</title>
-      <section className="section" aria-labelledby="home-title">
+      <section className="section home-welcome" aria-labelledby="home-title">
         <div className="container">
-          <h1 id="home-title">Bienvenido a CheckPoint Store</h1>
-          <p>Consolas, juegos, accesorios y figuras. Todo lo que necesitas en un solo lugar.</p>
-          <Link className="primary-btn" to="/productos">Ver productos</Link>
+          <div className="row align-items-center gy-4">
+            <div className="col-md-6">
+              <h1 id="home-title">Bienvenido a CheckPoint Store</h1>
+              <p>Consolas, juegos, accesorios y figuras. Todo lo que necesitas en un solo lugar.</p>
+              <Link className="primary-btn" to="/productos">Ver productos</Link>
+            </div>
+            <div className="col-md-6">
+              <ImageWithFallback
+                className="home-welcome-image"
+                src={publicAsset('img/cara_ps5.jpg')}
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -64,6 +84,48 @@ export default function HomePage() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="section home-editorial" aria-labelledby="home-editorial-title">
+        <div className="container">
+          <div className="home-editorial-banner">
+            <ImageWithFallback src={publicAsset('img/hotdeal.jpg')} alt="" loading="lazy" />
+            <div className="home-editorial-content">
+              <h2 id="home-editorial-title">Noticias del mundo gamer</h2>
+              <p>Un espacio para las novedades de la industria de los videojuegos.</p>
+              <Link className="primary-btn" to="/criticas">Críticas y noticias</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section home-newsletter" aria-labelledby="home-newsletter-title">
+        <div className="container">
+          <div className="home-newsletter-content">
+            <i className="fa fa-envelope-o home-newsletter-icon" aria-hidden="true" />
+            <h2 id="home-newsletter-title">Nuestro newsletter</h2>
+            <p id="home-newsletter-help">Suscripción no disponible por ahora.</p>
+            <div className="home-newsletter-controls">
+              <label className="visually-hidden" htmlFor="home-newsletter-email">Correo electrónico</label>
+              <input
+                id="home-newsletter-email"
+                className="form-control"
+                type="email"
+                placeholder="Ingresa tu correo"
+                aria-describedby="home-newsletter-help"
+                disabled
+              />
+              <button className="btn btn-dark" type="button" disabled>Suscribirse</button>
+            </div>
+            <ul className="home-social-references" aria-label="Referencias visuales de redes sociales">
+              {socialReferences.map(([icon, label]) => (
+                <li key={icon}>
+                  <span><i className={`fa ${icon}`} aria-hidden="true" /><span className="visually-hidden">{label}</span></span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </div>

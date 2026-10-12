@@ -307,6 +307,117 @@ a:focus-visible, button:focus-visible {
   overflow-wrap: anywhere;
 }
 
+.home-welcome {
+  background: #f7f7fa;
+}
+
+.home-welcome p {
+  margin: 16px 0 24px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.home-welcome-image {
+  display: block;
+  width: 100%;
+  height: clamp(180px, 28vw, 320px);
+  object-fit: contain;
+}
+
+.home-editorial-banner {
+  display: grid;
+  align-items: center;
+  background: #e4e7ed;
+}
+
+.home-editorial-banner > img {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: auto;
+}
+
+.home-editorial-content {
+  grid-area: 1 / 1;
+  justify-self: center;
+  width: 48%;
+  padding: 24px;
+  text-align: center;
+  background: rgba(228, 231, 237, 0.95);
+  overflow-wrap: anywhere;
+}
+
+.home-editorial-content h2,
+.home-newsletter h2 {
+  font-size: clamp(22px, 3vw, 28px);
+}
+
+.home-editorial-content .primary-btn {
+  max-width: 100%;
+  white-space: normal;
+}
+
+.home-newsletter {
+  border-top: 2px solid #e4e7ed;
+}
+
+.home-newsletter-content {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-newsletter-icon {
+  margin-bottom: 16px;
+  color: #7020ba;
+  font-size: 40px;
+}
+
+.home-newsletter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.home-newsletter-controls input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.home-newsletter-controls button {
+  flex: 1 1 140px;
+}
+
+.home-social-references {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-social-references li > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e4e7ed;
+}
+
+@media (max-width: 767px) {
+  .home-editorial-banner > img,
+  .home-editorial-content {
+    grid-area: auto;
+  }
+
+  .home-editorial-content {
+    width: 100%;
+  }
+}
+
 /* Catálogo: tarjetas de Electro con controles visibles también en pantallas táctiles. */
 .catalog-title {
   font-size: 24px;
