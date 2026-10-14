@@ -5,6 +5,8 @@
       "codigo": "JUE-001",
       "nombre": "Elden Ring",
       "categoria": "juego",
+      "ecosistema": "playstation",
+      "enOferta": true,
       "precio": 45000,
       "imagen": "img/cara_elden_ring.jpg",
       "imagenes": [
@@ -22,6 +24,8 @@
       "codigo": "JUE-002",
       "nombre": "Super Mario Odyssey",
       "categoria": "juego",
+      "ecosistema": "nintendo",
+      "enOferta": false,
       "precio": 50000,
       "imagen": "img/cara_super_mario_odyssey.jpg",
       "imagenes": [
@@ -39,6 +43,8 @@
       "codigo": "CON-001",
       "nombre": "PlayStation 5",
       "categoria": "consola",
+      "ecosistema": "playstation",
+      "enOferta": false,
       "precio": 550000,
       "imagen": "img/cara_ps5.jpg",
       "imagenes": [
@@ -54,6 +60,8 @@
       "codigo": "CON-002",
       "nombre": "Nintendo Switch OLED",
       "categoria": "consola",
+      "ecosistema": "nintendo",
+      "enOferta": true,
       "precio": 350000,
       "imagen": "img/cara_nintendo_switch_oled.jpg",
       "imagenes": [
@@ -69,6 +77,8 @@
       "codigo": "ACC-001",
       "nombre": "Control DualSense",
       "categoria": "accesorio",
+      "ecosistema": "playstation",
+      "enOferta": true,
       "precio": 65000,
       "imagen": "img/cara_dualsense.jpg",
       "imagenes": [
@@ -85,6 +95,8 @@
       "codigo": "ACC-002",
       "nombre": "Guitarra Guitar Hero",
       "categoria": "accesorio",
+      "ecosistema": "otros",
+      "enOferta": false,
       "precio": 40000,
       "imagen": "img/cara_guitarra_guitar_hero.jpg",
       "imagenes": [
@@ -101,6 +113,8 @@
       "codigo": "FIG-001",
       "nombre": "Amiibo Bowser",
       "categoria": "figura",
+      "ecosistema": "nintendo",
+      "enOferta": true,
       "precio": 25000,
       "imagen": "img/cara_amiibo_bowser.jpg",
       "imagenes": [
@@ -117,6 +131,8 @@
       "codigo": "FIG-002",
       "nombre": "Funko Pop Kratos",
       "categoria": "figura",
+      "ecosistema": "playstation",
+      "enOferta": false,
       "precio": 15000,
       "imagen": "img/cara_funko_pop_kratos.jpg",
       "imagenes": [
@@ -125,6 +141,70 @@
       "descripcionCorta": "Figura coleccionable de Kratos de God of War.",
       "descripcionLarga": "Figura coleccionable Funko Pop de Kratos, protagonista de la saga God of War. Ideal para exhibir junto a otros coleccionables de la franquicia.",
       "franquicia": "God of War"
+    },
+    {
+      "id": 9,
+      "codigo": "JUE-003",
+      "nombre": "Halo Infinite",
+      "categoria": "juego",
+      "ecosistema": "xbox",
+      "enOferta": true,
+      "precio": 39990,
+      "imagen": "img/cara_halo_infinite.jpg",
+      "imagenes": [
+        "img/cara_halo_infinite.jpg"
+      ],
+      "descripcionCorta": "Acción y aventura con el Jefe Maestro en Zeta Halo.",
+      "descripcionLarga": "Halo Infinite sigue al Jefe Maestro en una nueva campaña en Zeta Halo. Edición física para Xbox One y Xbox Series X.",
+      "formato": "fisico",
+      "plataforma": "Xbox One / Xbox Series X"
+    },
+    {
+      "id": 10,
+      "codigo": "CON-003",
+      "nombre": "Xbox Series X",
+      "categoria": "consola",
+      "ecosistema": "xbox",
+      "enOferta": false,
+      "precio": 499990,
+      "imagen": "img/cara_xbox_series_x.jpg",
+      "imagenes": [
+        "img/cara_xbox_series_x.jpg"
+      ],
+      "descripcionCorta": "Consola Xbox con lector de discos y almacenamiento SSD.",
+      "descripcionLarga": "Xbox Series X ofrece juegos en 4K, almacenamiento SSD y lector de discos. Disfruta de títulos de nueva generación y juegos retrocompatibles de Xbox."
+    },
+    {
+      "id": 11,
+      "codigo": "ACC-003",
+      "nombre": "Control Inalámbrico Xbox",
+      "categoria": "accesorio",
+      "ecosistema": "xbox",
+      "enOferta": true,
+      "precio": 59990,
+      "imagen": "img/cara_control_xbox.jpg",
+      "imagenes": [
+        "img/cara_control_xbox.jpg"
+      ],
+      "descripcionCorta": "Mando inalámbrico para consolas Xbox y PC.",
+      "descripcionLarga": "Control Inalámbrico Xbox con agarre texturizado, cruceta híbrida y botón para compartir capturas. Compatible con Xbox Series X|S, Xbox One y PC.",
+      "compatibilidad": "Xbox Series X|S / Xbox One / PC"
+    },
+    {
+      "id": 12,
+      "codigo": "FIG-003",
+      "nombre": "Figura Master Chief",
+      "categoria": "figura",
+      "ecosistema": "xbox",
+      "enOferta": false,
+      "precio": 24990,
+      "imagen": "img/cara_master_chief.jpg",
+      "imagenes": [
+        "img/cara_master_chief.jpg"
+      ],
+      "descripcionCorta": "Figura coleccionable del Jefe Maestro de Halo.",
+      "descripcionLarga": "Figura de Master Chief con su característica armadura de combate. Un coleccionable para los seguidores del universo Halo.",
+      "franquicia": "Halo"
     }
   ],
   "inventario": [
@@ -174,6 +254,30 @@
       "id": 8,
       "productoId": 8,
       "stock": 25,
+      "stockCritico": null
+    },
+    {
+      "id": 9,
+      "productoId": 9,
+      "stock": 12,
+      "stockCritico": null
+    },
+    {
+      "id": 10,
+      "productoId": 10,
+      "stock": 7,
+      "stockCritico": null
+    },
+    {
+      "id": 11,
+      "productoId": 11,
+      "stock": 18,
+      "stockCritico": null
+    },
+    {
+      "id": 12,
+      "productoId": 12,
+      "stock": 10,
       "stockCritico": null
     }
   ],
