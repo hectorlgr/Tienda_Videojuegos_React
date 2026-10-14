@@ -1,4 +1,5 @@
 import { CATALOG_CATEGORIES } from '../config/catalogCategories'
+import { STORE_ECOSYSTEMS } from '../config/storeEcosystems'
 
 export function normalizeProductCode(code) {
   return code.trim().toUpperCase()
@@ -20,6 +21,9 @@ export function validateProductForm({ product, inventory }) {
 
   if (!CATALOG_CATEGORIES.some(category => category.value === product.categoria)) {
     errors.categoria = 'Selecciona una categoría válida.'
+  }
+  if (!STORE_ECOSYSTEMS.some(ecosystem => ecosystem.value === product.ecosistema)) {
+    errors.ecosistema = 'Selecciona un ecosistema válido.'
   }
   if (!validInteger(product.precio, 1)) {
     errors.precio = 'Ingresa un precio entero seguro mayor que 0.'

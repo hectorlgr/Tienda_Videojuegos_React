@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CATALOG_CATEGORIES } from '../../config/catalogCategories'
+import { STORE_ECOSYSTEMS } from '../../config/storeEcosystems'
 import { normalizeProductCode, validateProductForm } from '../../utils/productValidation'
 import { findProductByCode } from '../../services/productService'
 import { createProductWithInventory, ProductInventoryCreationError } from '../../services/productCreationService'
@@ -9,7 +10,7 @@ const initialValues = {
   product: {
     codigo: '', nombre: '', categoria: '', precio: '', imagen: '', imagenes: '',
     descripcionCorta: '', descripcionLarga: '', formato: '', plataforma: '',
-    compatibilidad: '', franquicia: '',
+    compatibilidad: '', franquicia: '', ecosistema: '', enOferta: false,
   },
   inventory: { stock: '', stockCritico: '' },
 }
@@ -18,6 +19,7 @@ const productFields = [
   { name: 'codigo', label: 'Código comercial', required: true, help: 'Mínimo 3 caracteres. Se normaliza a mayúsculas al salir del campo o validar.' },
   { name: 'nombre', label: 'Nombre', required: true, maxLength: 100 },
   { name: 'categoria', label: 'Categoría', required: true, options: CATALOG_CATEGORIES },
+  { name: 'ecosistema', label: 'Ecosistema', required: true, options: STORE_ECOSYSTEMS },
   { name: 'precio', label: 'Precio (CLP)', type: 'number', min: 1, required: true },
   { name: 'descripcionCorta', label: 'Descripción corta', multiline: true, maxLength: 120 },
   { name: 'descripcionLarga', label: 'Descripción larga', multiline: true, maxLength: 500 },
@@ -70,7 +72,7 @@ export default function AdminProductCreatePage() {
     if (pendingRef.current) return
     const next = {
       product: {
-        ...Object.fromEntries(Object.entries(values.product).map(([name, value]) => [name, value.trim()])),
+        ...Object.fromEntries(Object.entries(values.product).map(([name, value]) => [name, typeof value === 'string' ? value.trim() : value])),
         codigo: normalizeProductCode(values.product.codigo),
       },
       inventory: {
@@ -103,6 +105,8 @@ export default function AdminProductCreatePage() {
         codigo: code,
         nombre: next.product.nombre,
         categoria: next.product.categoria,
+        ecosistema: next.product.ecosistema,
+        enOferta: next.product.enOferta,
         precio: Number(next.product.precio),
         imagen: next.product.imagen,
         imagenes: next.product.imagenes.split(/\r?\n/).map(line => line.trim()).filter(Boolean),
@@ -193,6 +197,17 @@ export default function AdminProductCreatePage() {
               <fieldset className="mb-4" disabled={pending}>
                 <legend className="fs-5 fw-semibold">Producto</legend>
                 <div className="row g-3">{productFields.map(field => renderField('product', field))}</div>
+                <div className="form-check mt-3">
+                  <input
+                    id="new-product-enOferta"
+                    name="enOferta"
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={values.product.enOferta}
+                    onChange={event => changeValue('product', 'enOferta', event.target.checked)}
+                  />
+                  <label htmlFor="new-product-enOferta" className="form-check-label">Producto en oferta</label>
+                </div>
               </fieldset>
               <fieldset className="mb-4" disabled={pending}>
                 <legend className="fs-5 fw-semibold">Inventario</legend>

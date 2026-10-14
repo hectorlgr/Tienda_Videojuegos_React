@@ -2,7 +2,7 @@ import { assertNumericId } from '../utils/ids.js'
 import { getJson, postJson, HttpError } from './httpClient.js'
 
 const PRODUCT_FIELDS = [
-  'codigo', 'nombre', 'categoria', 'precio', 'imagen', 'imagenes',
+  'codigo', 'nombre', 'categoria', 'ecosistema', 'enOferta', 'precio', 'imagen', 'imagenes',
   'descripcionCorta', 'descripcionLarga', 'formato', 'plataforma',
   'compatibilidad', 'franquicia',
 ]
