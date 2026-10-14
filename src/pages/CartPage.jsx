@@ -1,14 +1,11 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SHIPPING_REGIONS } from '../config/shippingRegions'
 import ImageWithFallback from '../components/common/ImageWithFallback'
 import CartQuantityControl from '../components/store/CartQuantityControl'
-import ShippingDestination from '../components/store/ShippingDestination'
 import { useCartDetails } from '../hooks/useCartDetails'
 import { useCart } from '../hooks/useCart'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
-import { calculateCartTotal, calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
+import { calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 
 function CartLine({ line }) {
   const { removeItem } = useCart()
@@ -70,18 +67,9 @@ function CartLine({ line }) {
 }
 
 export default function CartPage() {
-  const { clearCart, items } = useCart()
+  const { clearCart } = useCart()
   const { lines, loading, error } = useCartDetails()
-  const [destination, setDestination] = useState({ regionId: '', comuna: '' })
-  const selectedRegion = SHIPPING_REGIONS.find(region => region.id === destination.regionId)
-  const shippingCost = selectedRegion?.costoEnvio ?? null
   const productsSubtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
-  const total = calculateCartTotal(productsSubtotal, shippingCost)
-
-  // El destino es solo de interfaz y se reinicia al quedar vacío el carrito.
-  if (items.length === 0 && (destination.regionId || destination.comuna)) {
-    setDestination({ regionId: '', comuna: '' })
-  }
 
   return (
     <>
@@ -113,25 +101,11 @@ export default function CartPage() {
                 </ul>
                 <dl className="cart-products-subtotal">
                   <div>
-                    <dt>Subtotal productos</dt>
+                    <dt>Subtotal</dt>
                     <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
                   </div>
-                  <div className="cart-shipping-cost">
-                    <dt>Envío</dt>
-                    <dd>{shippingCost !== null ? formatCLP(shippingCost) : 'Selecciona una región'}</dd>
-                  </div>
-                  <div className="cart-total">
-                    <dt>Total</dt>
-                    <dd>{total !== null ? formatCLP(total) : 'Por calcular'}</dd>
-                  </div>
                 </dl>
-                <button type="button" className="btn btn-success w-100 fw-bold py-2 mt-3 cart-pay">PAY</button>
-                <ShippingDestination
-                  regionId={destination.regionId}
-                  comuna={destination.comuna}
-                  onRegionChange={regionId => setDestination({ regionId, comuna: '' })}
-                  onComunaChange={comuna => setDestination(current => ({ ...current, comuna }))}
-                />
+                <button type="button" className="btn btn-success w-100 fw-bold py-2 mt-3 cart-continue">Continuar compra</button>
                 <button type="button" className="btn btn-outline-danger cart-clear mt-3" onClick={clearCart}>
                   Vaciar carrito
                 </button>
