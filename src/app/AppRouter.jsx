@@ -6,6 +6,7 @@ import HomePage from '../pages/HomePage'
 import ProductsPage from '../pages/ProductsPage'
 import ProductDetailPage from '../pages/ProductDetailPage'
 import CartPage from '../pages/CartPage'
+import CheckoutPage from '../pages/CheckoutPage'
 import LoginPage from '../pages/LoginPage'
 import RegisterPage from '../pages/RegisterPage'
 import ContactPage from '../pages/ContactPage'
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="productos" element={<ProductsPage />} />
         <Route path="productos/:id" element={<ProductDetailPage />} />
         <Route path="carrito" element={<CartPage />} />
+        <Route path="checkout" element={<CheckoutPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registro" element={<RegisterPage />} />
         <Route path="contacto" element={<ContactPage />} />

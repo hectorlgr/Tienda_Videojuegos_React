@@ -105,7 +105,7 @@ export default function CartPage() {
                     <dd>{productsSubtotal !== null ? formatCLP(productsSubtotal) : 'No disponible'}</dd>
                   </div>
                 </dl>
-                <button type="button" className="btn btn-success w-100 fw-bold py-2 mt-3 cart-continue">Continuar compra</button>
+                <Link to="/checkout" className="btn btn-success w-100 fw-bold py-2 mt-3 cart-continue">Continuar compra</Link>
                 <button type="button" className="btn btn-outline-danger cart-clear mt-3" onClick={clearCart}>
                   Vaciar carrito
                 </button>
