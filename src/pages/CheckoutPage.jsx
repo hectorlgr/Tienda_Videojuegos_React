@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import ShippingDestination from '../components/store/ShippingDestination'
 import { SHIPPING_REGIONS } from '../config/shippingRegions'
 import { useCartDetails } from '../hooks/useCartDetails'
+import { useAuth } from '../hooks/useAuth'
+import { initialCheckoutDelivery, normalizeCheckoutDelivery, validateCheckout } from '../utils/checkoutValidation'
 import { calculateCartTotal, calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 import { formatCLP } from '../utils/currency'
 
@@ -15,21 +17,34 @@ const deliveryFields = [
 
 export default function CheckoutPage() {
   const { lines, loading, error } = useCartDetails()
-  const [delivery, setDelivery] = useState({
-    nombre: '', apellidos: '', correo: '', direccion: '', regionId: '', comuna: '',
-  })
+  const { user } = useAuth()
+  const [delivery, setDelivery] = useState(() => initialCheckoutDelivery(user))
+  const [errors, setErrors] = useState({})
+  const [submitted, setSubmitted] = useState(false)
   const region = SHIPPING_REGIONS.find(option => option.id === delivery.regionId)
   const shippingCost = region?.costoEnvio ?? null
   const subtotal = !loading && !error ? calculateProductsSubtotal(lines) : null
   const total = calculateCartTotal(subtotal, shippingCost)
 
+  function changeDelivery(next) {
+    setDelivery(next)
+    if (submitted) setErrors(validateCheckout(next))
+  }
+
+  function validatePayment() {
+    const normalized = normalizeCheckoutDelivery(delivery)
+    setDelivery(normalized)
+    setSubmitted(true)
+    setErrors(validateCheckout(normalized))
+  }
+
   function changeRegion(regionId) {
     const nextRegion = SHIPPING_REGIONS.find(option => option.id === regionId)
-    setDelivery(current => ({
-      ...current,
+    changeDelivery({
+      ...delivery,
       regionId,
-      comuna: nextRegion?.comunas.includes(current.comuna) ? current.comuna : '',
-    }))
+      comuna: nextRegion?.comunas.includes(delivery.comuna) ? delivery.comuna : '',
+    })
   }
 
   return (
@@ -49,6 +64,11 @@ export default function CheckoutPage() {
               <div className="col-12 col-lg-7">
                 <section className="card shadow-sm p-3 p-md-4" aria-labelledby="delivery-title">
                   <h2 id="delivery-title" className="fs-4 mb-3">Datos de entrega</h2>
+                  <div role="alert">
+                    {submitted && Object.keys(errors).length > 0 && (
+                      <p className="alert alert-danger">Revisa los campos indicados.</p>
+                    )}
+                  </div>
                   <div className="row g-3">
                     {deliveryFields.map(({ name, label, type = 'text' }) => (
                       <div className="col-12 col-md-6" key={name}>
@@ -57,10 +77,13 @@ export default function CheckoutPage() {
                           id={`checkout-${name}`}
                           name={name}
                           type={type}
-                          className="form-control"
+                          className={`form-control${errors[name] ? ' is-invalid' : ''}`}
+                          aria-invalid={errors[name] ? true : undefined}
+                          aria-describedby={errors[name] ? `checkout-${name}-error` : undefined}
                           value={delivery[name]}
-                          onChange={event => setDelivery(current => ({ ...current, [name]: event.target.value }))}
+                          onChange={event => changeDelivery({ ...delivery, [name]: event.target.value })}
                         />
+                        {errors[name] && <div id={`checkout-${name}-error`} className="invalid-feedback">{errors[name]}</div>}
                       </div>
                     ))}
                   </div>
@@ -68,7 +91,8 @@ export default function CheckoutPage() {
                     regionId={delivery.regionId}
                     comuna={delivery.comuna}
                     onRegionChange={changeRegion}
-                    onComunaChange={comuna => setDelivery(current => ({ ...current, comuna }))}
+                    onComunaChange={comuna => changeDelivery({ ...delivery, comuna })}
+                    errors={errors}
                   />
                 </section>
               </div>
@@ -102,6 +126,10 @@ export default function CheckoutPage() {
                       <dd>{total !== null ? formatCLP(total) : 'Pendiente'}</dd>
                     </div>
                   </dl>
+                  <div className="d-grid gap-2 mt-3">
+                    <button type="button" className="btn btn-success" onClick={validatePayment}>Simular pago válido</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={validatePayment}>Simular pago inválido</button>
+                  </div>
                 </section>
               </div>
             </div>
