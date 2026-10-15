@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShippingDestination from '../components/store/ShippingDestination'
 import { SHIPPING_REGIONS } from '../config/shippingRegions'
 import { useCartDetails } from '../hooks/useCartDetails'
@@ -16,6 +16,7 @@ const deliveryFields = [
 ]
 
 export default function CheckoutPage() {
+  const navigate = useNavigate()
   const { lines, loading, error } = useCartDetails()
   const { user } = useAuth()
   const [delivery, setDelivery] = useState(() => initialCheckoutDelivery(user))
@@ -31,11 +32,13 @@ export default function CheckoutPage() {
     if (submitted) setErrors(validateCheckout(next))
   }
 
-  function validatePayment() {
+  function validatePayment(destination) {
     const normalized = normalizeCheckoutDelivery(delivery)
     setDelivery(normalized)
     setSubmitted(true)
-    setErrors(validateCheckout(normalized))
+    const nextErrors = validateCheckout(normalized)
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length === 0) navigate(destination)
   }
 
   function changeRegion(regionId) {
@@ -127,8 +130,8 @@ export default function CheckoutPage() {
                     </div>
                   </dl>
                   <div className="d-grid gap-2 mt-3">
-                    <button type="button" className="btn btn-success" onClick={validatePayment}>Simular pago válido</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={validatePayment}>Simular pago inválido</button>
+                    <button type="button" className="btn btn-success" onClick={() => validatePayment('/compra-exitosa')}>Simular pago válido</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={() => validatePayment('/compra-rechazada')}>Simular pago inválido</button>
                   </div>
                 </section>
               </div>
