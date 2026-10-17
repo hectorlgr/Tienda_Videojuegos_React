@@ -1,5 +1,10 @@
 import { getJson, postJson } from './httpClient.js'
 
+// Incluye password (JSON Server académico): quien llame no debe mostrarla ni persistirla.
+export function getUsers() {
+  return getJson('usuarios')
+}
+
 export function createUser(userData) {
   return postJson('usuarios', userData)
 }

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import AdminHeader from '../components/admin/AdminHeader'
-import AdminNavbar from '../components/admin/AdminNavbar'
+import AdminSidebar from '../components/admin/AdminSidebar'
 import AdminFooter from '../components/admin/AdminFooter'
 
 export default function AdminLayout() {
@@ -8,8 +8,10 @@ export default function AdminLayout() {
     <div className="app-shell admin-layout">
       <a className="skip-link" href="#main-content">Saltar al contenido</a>
       <AdminHeader />
-      <AdminNavbar />
-      <main id="main-content" tabIndex={-1}><Outlet /></main>
+      <div className="admin-body">
+        <AdminSidebar />
+        <main id="main-content" className="admin-main" tabIndex={-1}><Outlet /></main>
+      </div>
       <AdminFooter />
     </div>
   )

@@ -931,3 +931,192 @@ a:focus-visible, button:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 4px;
 }
+
+/* Panel administrativo: barra lateral y dashboard. */
+.admin-body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-sidebar {
+  flex: 0 0 240px;
+  padding: 24px 16px;
+  background: #0f172a;
+  color: #cbd5e1;
+}
+
+.admin-sidebar nav {
+  position: sticky;
+  top: 16px;
+}
+
+.admin-sidebar-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+}
+
+.admin-sidebar-section + .admin-sidebar-section {
+  margin-top: 20px;
+}
+
+.admin-sidebar-title {
+  margin: 0 0 8px;
+  padding: 0 12px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.admin-sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.admin-sidebar a:hover {
+  background: rgba(124, 58, 237, 0.2);
+  color: #fff;
+}
+
+.admin-sidebar a.active {
+  background: #7c3aed;
+  color: #fff;
+  font-weight: 700;
+}
+
+.admin-sidebar a:focus-visible,
+.admin-sidebar-toggle:focus-visible {
+  outline: 3px solid #c4b5fd;
+  outline-offset: 2px;
+}
+
+.admin-dashboard-page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.admin-stat-card {
+  border: 0;
+  border-top: 4px solid #8a2be2;
+}
+
+.admin-stat-label {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-stat-icon {
+  color: #8a2be2;
+  font-size: 1.5rem;
+}
+
+.admin-stat-value {
+  margin: 12px 0 4px;
+  color: #0f172a;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.admin-stat-link {
+  color: #7c3aed;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-stat-link:hover {
+  text-decoration: underline;
+}
+
+.admin-dashboard-page .btn:focus-visible,
+.admin-stat-link:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
+
+@media (max-width: 991px) {
+  .admin-body {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    flex-basis: auto;
+    padding: 0 16px;
+  }
+
+  .admin-sidebar nav {
+    position: static;
+  }
+
+  .admin-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .admin-sidebar-menu {
+    display: none;
+    padding-bottom: 16px;
+  }
+
+  .admin-sidebar-menu.is-open {
+    display: block;
+  }
+}
+
+.admin-products-page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.admin-products-table {
+  padding: 6px;
+  border: 1px solid #e4e7ed;
+}
+
+.admin-products-table th,
+.admin-products-table td {
+  padding: 12px;
+  max-width: 260px;
+  overflow-wrap: break-word;
+}
+
+.admin-product-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f1f5f9;
+}
+
+.admin-products-table:focus-visible,
+.admin-products-table a:focus-visible,
+.admin-products-page .btn:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
