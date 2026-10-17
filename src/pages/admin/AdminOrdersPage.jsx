@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react'
 import { getOrders } from '../../services/orderService'
 import { formatCLP } from '../../utils/currency'
+import { orderStatusClass } from '../../utils/orderStatus'
 
 function displayValue(value) {
   return value == null || value === '' ? '—' : value
-}
-
-function statusClass(status) {
-  switch (status) {
-    case 'Pendiente': return 'text-bg-warning'
-    case 'Pagado': return 'text-bg-info'
-    case 'Enviado': return 'text-bg-secondary'
-    case 'Entregado': return 'text-bg-success'
-    default: return 'text-bg-light'
-  }
 }
 
 export default function AdminOrdersPage() {
@@ -97,7 +88,7 @@ export default function AdminOrdersPage() {
                       <td className="text-nowrap">
                         {order.montoTotal == null || order.montoTotal === '' ? '—' : formatCLP(order.montoTotal)}
                       </td>
-                      <td><span className={`badge ${statusClass(order.estado)}`}>{displayValue(order.estado)}</span></td>
+                      <td><span className={`badge ${orderStatusClass(order.estado)}`}>{displayValue(order.estado)}</span></td>
                       <td><button type="button" className="btn btn-sm btn-primary text-nowrap">Ver detalle</button></td>
                     </tr>
                   ))}

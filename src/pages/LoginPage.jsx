@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { findUserByEmail } from '../services/userService'
 
-// Vendedor y administrador comienzan en Órdenes; los permisos se separan con guards.
+// El vendedor solo tiene acceso a Órdenes; el administrador comienza en el Dashboard.
 const HOME_BY_ROLE = {
   cliente: '/',
   vendedor: '/admin/ordenes',
-  administrador: '/admin/ordenes',
+  administrador: '/admin',
 }
 
 const INVALID_CREDENTIALS = 'Correo o contraseña incorrectos.'

@@ -1,8 +1,31 @@
-import { getJson, postJson } from './httpClient.js'
+import { assertNumericId } from '../utils/ids.js'
+import { getJson, postJson, HttpError } from './httpClient.js'
+
+export class UserNotFoundError extends HttpError {
+  constructor(userId) {
+    super(`No existe el usuario con ID ${userId}.`, 404)
+    this.name = 'UserNotFoundError'
+  }
+}
 
 // Incluye password (JSON Server académico): quien llame no debe mostrarla ni persistirla.
 export function getUsers() {
   return getJson('usuarios')
+}
+
+// Igual que getUsers, la respuesta incluye password.
+export async function getUserById(id) {
+  assertNumericId(id)
+
+  try {
+    return await getJson(`usuarios/${id}`)
+  } catch (error) {
+    if (error instanceof HttpError && error.status === 404) {
+      throw new UserNotFoundError(id)
+    }
+
+    throw error
+  }
 }
 
 export function createUser(userData) {

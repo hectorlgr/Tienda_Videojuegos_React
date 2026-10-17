@@ -317,6 +317,18 @@
       "region": null,
       "comuna": null,
       "rol": "cliente"
+    },
+    {
+      "run": "19.011.022-2",
+      "nombre": "Luisa",
+      "apellidos": "Gómez Rojas",
+      "correo": "luisa@gmail.com",
+      "password": "Luisa123!",
+      "direccion": "Av. Nueva Providencia 1234",
+      "region": "Región Metropolitana",
+      "comuna": "Providencia",
+      "rol": "cliente",
+      "id": 4
     }
   ],
   "ordenes": [

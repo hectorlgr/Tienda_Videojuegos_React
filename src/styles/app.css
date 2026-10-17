@@ -1120,3 +1120,60 @@ a:focus-visible, button:focus-visible {
   outline: 3px solid #8a2be2;
   outline-offset: 4px;
 }
+
+.admin-users-page h1,
+.admin-user-detail-page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  overflow-wrap: anywhere;
+}
+
+.admin-users-table,
+.admin-user-orders-table {
+  padding: 6px;
+  border: 1px solid #e4e7ed;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 12px;
+  max-width: 280px;
+  overflow-wrap: anywhere;
+}
+
+.admin-user-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.admin-user-facts dt {
+  color: #64748b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-user-facts dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-users-table:focus-visible,
+.admin-users-table a:focus-visible,
+.admin-user-orders-table:focus-visible,
+.admin-user-detail-page .btn:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
+
+.admin-reports-page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.admin-report-value {
+  margin: 8px 0 0;
+  color: #0f172a;
+  font-size: 1.75rem;
+  font-weight: 700;
+}

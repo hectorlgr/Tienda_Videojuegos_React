@@ -17,6 +17,9 @@ import NotFoundPage from '../pages/NotFoundPage'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage'
 import AdminProductsPage from '../pages/admin/AdminProductsPage'
+import AdminUsersPage from '../pages/admin/AdminUsersPage'
+import AdminUserDetailPage from '../pages/admin/AdminUserDetailPage'
+import AdminReportsPage from '../pages/admin/AdminReportsPage'
 import AdminStockPage from '../pages/admin/AdminStockPage'
 import AdminProductCreatePage from '../pages/admin/AdminProductCreatePage'
 
@@ -46,6 +49,9 @@ export default function AppRouter() {
             <Route path="productos" element={<AdminProductsPage />} />
             <Route path="stock" element={<AdminStockPage />} />
             <Route path="productos/nuevo" element={<AdminProductCreatePage />} />
+            <Route path="usuarios" element={<AdminUsersPage />} />
+            <Route path="usuarios/:id" element={<AdminUserDetailPage />} />
+            <Route path="reportes" element={<AdminReportsPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage admin />} />
         </Route>

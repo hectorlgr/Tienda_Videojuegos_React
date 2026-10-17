@@ -21,6 +21,15 @@ const sections = [
       { to: '/admin/productos/nuevo', text: 'Nuevo producto', icon: 'fa-plus-square', roles: ['administrador'] },
     ],
   },
+  {
+    title: 'Usuarios',
+    // Sin end: el enlace sigue activo en el detalle /admin/usuarios/:id.
+    links: [{ to: '/admin/usuarios', text: 'Listado de usuarios', icon: 'fa-users', roles: ['administrador'] }],
+  },
+  {
+    title: 'Reportes',
+    links: [{ to: '/admin/reportes', text: 'Estadísticas', icon: 'fa-bar-chart', roles: ['administrador'] }],
+  },
 ]
 
 export default function AdminSidebar() {

@@ -7,7 +7,7 @@ export default function AdminDashboardPage() {
 
   const cards = metrics && [
     { label: 'Productos', value: metrics.products, icon: 'fa-gamepad', description: 'Productos registrados en el catálogo.', to: '/admin/productos', linkText: 'Ver productos' },
-    { label: 'Usuarios', value: metrics.users, icon: 'fa-users', description: 'Cuentas registradas en la tienda.' },
+    { label: 'Usuarios', value: metrics.users, icon: 'fa-users', description: 'Cuentas registradas en la tienda.', to: '/admin/usuarios', linkText: 'Ver usuarios' },
     { label: 'Órdenes', value: metrics.orders, icon: 'fa-list-alt', description: 'Órdenes registradas.', to: '/admin/ordenes', linkText: 'Ver órdenes' },
     { label: 'Productos agotados', value: metrics.soldOut, icon: 'fa-exclamation-triangle', description: 'Productos con stock 0.', to: '/admin/stock', linkText: 'Revisar stock' },
   ]

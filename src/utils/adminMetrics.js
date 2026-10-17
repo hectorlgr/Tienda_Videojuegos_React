@@ -9,3 +9,4 @@ export function countSoldOutProducts(products, inventory) {
   const stockByProductId = new Map(inventory.map(record => [record.productoId, record.stock]))
   return products.filter(product => (stockByProductId.get(product.id) ?? 0) <= 0).length
 }
+
