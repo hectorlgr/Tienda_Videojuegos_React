@@ -1177,3 +1177,114 @@ a:focus-visible, button:focus-visible {
   font-size: 1.75rem;
   font-weight: 700;
 }
+
+/* Categorías por ecosistema */
+.ecosystem-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 24px;
+  border-radius: 8px;
+  background: #15161d;
+  color: #fff;
+  text-decoration: none;
+  border-top: 5px solid #8a2be2;
+}
+
+.ecosystem-playstation { border-top-color: #0070d1; }
+.ecosystem-xbox { border-top-color: #107c10; }
+.ecosystem-nintendo { border-top-color: #e60012; }
+.ecosystem-otros { border-top-color: #8a2be2; }
+
+.ecosystem-card:hover,
+.ecosystem-card:focus-visible {
+  background: #2b2d42;
+  color: #fff;
+}
+
+.ecosystem-card:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 4px;
+}
+
+.ecosystem-icon {
+  font-size: 2rem;
+}
+
+.ecosystem-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ecosystem-description {
+  color: #cbd5e1;
+  flex: 1;
+}
+
+.ecosystem-count {
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+.ecosystem-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ecosystem-tabs a {
+  padding: 6px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  color: #2b2d42;
+  text-decoration: none;
+}
+
+.ecosystem-tabs a.active {
+  border-color: #8a2be2;
+  background: #8a2be2;
+  color: #fff;
+}
+
+.ecosystem-tabs a:focus-visible {
+  outline: 3px solid #8a2be2;
+  outline-offset: 2px;
+}
+
+/* Ofertas */
+.offers-search {
+  width: min(100%, 320px);
+}
+
+.offers-search .form-control:focus-visible {
+  border-color: #8a2be2;
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
+}
+
+/* Nosotros */
+.about-logo {
+  width: min(100%, 280px);
+  height: auto;
+}
+
+.about-offerings {
+  background: #f8f9fb;
+}
+
+.about-card {
+  padding: 24px;
+  border: 1px solid #e4e7ed;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.about-card i {
+  margin-bottom: 12px;
+  color: #8a2be2;
+  font-size: 1.75rem;
+}
+
+.about-card h3 {
+  font-size: 1.15rem;
+}

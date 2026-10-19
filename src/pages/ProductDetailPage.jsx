@@ -5,7 +5,7 @@ import QuantitySelector from '../components/store/QuantitySelector'
 import DetailAddToCartButton from '../components/store/DetailAddToCartButton'
 import { useProductDetail } from '../hooks/useProductDetail'
 import { ProductNotFoundError } from '../services/productService'
-import { formatCLP } from '../utils/currency'
+import ProductPrice from '../components/store/ProductPrice'
 
 const optionalFields = [
   ['formato', 'Formato'],
@@ -89,7 +89,7 @@ export default function ProductDetailPage() {
                 <p className="detail-category">{product.categoria}</p>
                 <h1 className="product-name" id="detail-name">{product.nombre}</h1>
                 <div className="detail-price-stock">
-                  <p className="product-price">{formatCLP(product.precio)}</p>
+                  <ProductPrice product={product} />
                   <p className={`product-available ${available ? 'is-available' : 'is-unavailable'}`}>
                     {available ? `Disponible · ${product.stock} unidades` : 'Agotado'}
                   </p>

@@ -28,6 +28,14 @@ export function validateProductForm({ product, inventory }) {
   if (!validInteger(product.precio, 1)) {
     errors.precio = 'Ingresa un precio entero seguro mayor que 0.'
   }
+  // Con "Producto en oferta" marcado, el precio de oferta es obligatorio y menor al normal.
+  if (product.enOferta) {
+    if (!validInteger(product.precioOferta, 1)) {
+      errors.precioOferta = 'Ingresa un precio de oferta entero mayor que 0.'
+    } else if (validInteger(product.precio, 1) && Number(product.precioOferta) >= Number(product.precio)) {
+      errors.precioOferta = 'El precio de oferta debe ser menor que el precio normal.'
+    }
+  }
   // El formulario antiguo generaba la descripción corta con los primeros 120 caracteres.
   if (product.descripcionCorta.length > 120) errors.descripcionCorta = 'Máximo 120 caracteres.'
   if (product.descripcionLarga.length > 500) errors.descripcionLarga = 'Máximo 500 caracteres.'

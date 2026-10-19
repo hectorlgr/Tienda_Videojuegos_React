@@ -7,6 +7,7 @@ import { useAuth } from '../hooks/useAuth'
 import { initialCheckoutDelivery, normalizeCheckoutDelivery, validateCheckout } from '../utils/checkoutValidation'
 import { calculateCartTotal, calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 import { formatCLP } from '../utils/currency'
+import { getEffectivePrice } from '../utils/pricing'
 
 const deliveryFields = [
   { name: 'nombre', label: 'Nombre' },
@@ -109,7 +110,7 @@ export default function CheckoutPage() {
                         <li key={line.productoId} className="border-bottom pb-3 mb-3">
                           <h3 className="fs-6">{line.product?.nombre ?? 'Producto no disponible'}</h3>
                           <p className="mb-1">Cantidad: {line.cantidad}</p>
-                          <p className="mb-1">Precio unitario: {isValidPrice(line.product?.precio) ? formatCLP(line.product.precio) : 'No disponible'}</p>
+                          <p className="mb-1">Precio unitario: {isValidPrice(getEffectivePrice(line.product)) ? formatCLP(getEffectivePrice(line.product)) : 'No disponible'}</p>
                           <p className="mb-0 fw-semibold">Subtotal: {lineSubtotal !== null ? formatCLP(lineSubtotal) : 'No disponible'}</p>
                         </li>
                       )

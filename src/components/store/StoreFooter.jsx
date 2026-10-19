@@ -36,7 +36,7 @@ export default function StoreFooter() {
               <div className="footer">
                 <h2 className="footer-title">Categorías</h2>
                 <ul className="footer-links">
-                  <li><span>Ofertas</span></li>
+                  <li><Link to="/ofertas">Ofertas</Link></li>
                   {categories.map(([value, text]) => <li key={value}><Link to={`/productos?categoria=${value}`}>{text}</Link></li>)}
                 </ul>
               </div>
@@ -45,7 +45,7 @@ export default function StoreFooter() {
               <div className="footer">
                 <h2 className="footer-title">Información</h2>
                 <ul className="footer-links">
-                  <li><span>Sobre nosotros</span></li>
+                  <li><Link to="/nosotros">Sobre nosotros</Link></li>
                   <li><Link to="/contacto">Contacta con nosotros</Link></li>
                   <li><span>Política de privacidad</span></li>
                   <li><span>Pedidos y devoluciones</span></li>

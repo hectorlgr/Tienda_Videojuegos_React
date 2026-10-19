@@ -1,10 +1,13 @@
+import { getEffectivePrice } from './pricing'
+
 export function isValidPrice(price) {
   return typeof price === 'number' && Number.isFinite(price) && price >= 0
 }
 
 // null distingue un importe no disponible de un subtotal válido de $0.
 export function calculateLineSubtotal(line) {
-  const price = line?.product?.precio
+  // Si el producto está en oferta se cobra precioOferta.
+  const price = getEffectivePrice(line?.product)
   const quantity = line?.cantidad
   if (!isValidPrice(price) || !Number.isSafeInteger(quantity) || quantity <= 0) return null
 

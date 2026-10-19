@@ -5,6 +5,10 @@ import ProtectedRoute from '../components/common/ProtectedRoute'
 import HomePage from '../pages/HomePage'
 import ProductsPage from '../pages/ProductsPage'
 import ProductDetailPage from '../pages/ProductDetailPage'
+import CategoriesPage from '../pages/CategoriesPage'
+import CategoryProductsPage from '../pages/CategoryProductsPage'
+import OffersPage from '../pages/OffersPage'
+import AboutPage from '../pages/AboutPage'
 import CartPage from '../pages/CartPage'
 import CheckoutPage from '../pages/CheckoutPage'
 import PurchaseSuccessPage from '../pages/PurchaseSuccessPage'
@@ -30,6 +34,10 @@ export default function AppRouter() {
         <Route index element={<HomePage />} />
         <Route path="productos" element={<ProductsPage />} />
         <Route path="productos/:id" element={<ProductDetailPage />} />
+        <Route path="categorias" element={<CategoriesPage />} />
+        <Route path="categorias/:ecosistema" element={<CategoryProductsPage />} />
+        <Route path="ofertas" element={<OffersPage />} />
+        <Route path="nosotros" element={<AboutPage />} />
         <Route path="carrito" element={<CartPage />} />
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="compra-exitosa" element={<PurchaseSuccessPage />} />

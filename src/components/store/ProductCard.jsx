@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart'
 import ImageWithFallback from '../common/ImageWithFallback'
 import { publicAsset } from '../../utils/assets'
-import { formatCLP } from '../../utils/currency'
+import { getDiscountPercent, hasValidOffer } from '../../utils/pricing'
+import ProductPrice from './ProductPrice'
 
 const categoryLabels = {
   juego: 'Juego',
@@ -48,16 +49,19 @@ export default function ProductCard({ product }) {
             alt={product.nombre}
           />
         </Link>
-        {product.categoria === 'juego' && product.formato && (
+        {(hasValidOffer(product) || (product.categoria === 'juego' && product.formato)) && (
           <div className="product-label">
-            <span className="new">{product.formato === 'digital' ? 'Digital' : 'Físico'}</span>
+            {hasValidOffer(product) && <span className="sale">-{getDiscountPercent(product)}%</span>}
+            {product.categoria === 'juego' && product.formato && (
+              <span className="new">{product.formato === 'digital' ? 'Digital' : 'Físico'}</span>
+            )}
           </div>
         )}
       </div>
       <div className="product-body">
         <p className="product-category">{categoryLabels[product.categoria] ?? product.categoria}</p>
         <h2 className="product-name"><Link to={productUrl}>{product.nombre}</Link></h2>
-        <p className="product-price">{formatCLP(product.precio)}</p>
+        <ProductPrice product={product} />
         <p className={`product-stock ${available ? 'is-available' : 'is-unavailable'}`}>
           {available ? 'Disponible' : 'Agotado'}
         </p>

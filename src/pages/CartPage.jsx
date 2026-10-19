@@ -5,6 +5,7 @@ import { useCartDetails } from '../hooks/useCartDetails'
 import { useCart } from '../hooks/useCart'
 import { publicAsset } from '../utils/assets'
 import { formatCLP } from '../utils/currency'
+import { getEffectivePrice } from '../utils/pricing'
 import { calculateLineSubtotal, calculateProductsSubtotal, isValidPrice } from '../utils/cartCalculations'
 
 function CartLine({ line }) {
@@ -28,7 +29,7 @@ function CartLine({ line }) {
       <dl className="cart-line-facts">
         <div>
           <dt>Precio unitario</dt>
-          <dd>{isValidPrice(product?.precio) ? formatCLP(product.precio) : 'No disponible'}</dd>
+          <dd>{isValidPrice(getEffectivePrice(product)) ? formatCLP(getEffectivePrice(product)) : 'No disponible'}</dd>
         </div>
         <div className="cart-line-quantity">
           <dt className={product && stock > 0 ? 'visually-hidden' : undefined}>Cantidad</dt>

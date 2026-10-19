@@ -17,7 +17,8 @@
       "descripcionCorta": "El aclamado juego de rol y acción de FromSoftware.",
       "descripcionLarga": "Elden Ring es un juego de rol y acción en mundo abierto desarrollado por FromSoftware. Esta edición física incluye disco y caja original, con soporte para PS5, Xbox Series X y PC.",
       "formato": "fisico",
-      "plataforma": "PS5 / Xbox Series X / PC"
+      "plataforma": "PS5 / Xbox Series X / PC",
+      "precioOferta": 36000
     },
     {
       "id": 2,
@@ -70,7 +71,8 @@
         "img/cara_mesa_nsoled.jpg"
       ],
       "descripcionCorta": "Consola híbrida con pantalla OLED vibrante.",
-      "descripcionLarga": "Nintendo Switch OLED combina modo portátil y de escritorio, con una pantalla OLED de colores más vivos y mayor contraste que el modelo estándar."
+      "descripcionLarga": "Nintendo Switch OLED combina modo portátil y de escritorio, con una pantalla OLED de colores más vivos y mayor contraste que el modelo estándar.",
+      "precioOferta": 315000
     },
     {
       "id": 5,
@@ -88,7 +90,8 @@
       ],
       "descripcionCorta": "Mando inalámbrico para PS5 con respuesta háptica.",
       "descripcionLarga": "Control DualSense inalámbrico para PlayStation 5, con retroalimentación háptica y gatillos adaptativos que responden a la acción del juego.",
-      "compatibilidad": "PlayStation 5"
+      "compatibilidad": "PlayStation 5",
+      "precioOferta": 52000
     },
     {
       "id": 6,
@@ -124,7 +127,8 @@
       ],
       "descripcionCorta": "Figura interactiva compatible con juegos de Nintendo Switch.",
       "descripcionLarga": "Amiibo de Bowser, compatible con distintos juegos de Nintendo Switch que soportan funciones de Amiibo, como desbloqueo de contenido o personajes.",
-      "franquicia": "Super Mario / Nintendo"
+      "franquicia": "Super Mario / Nintendo",
+      "precioOferta": 19990
     },
     {
       "id": 8,
@@ -157,7 +161,8 @@
       "descripcionCorta": "Acción y aventura con el Jefe Maestro en Zeta Halo.",
       "descripcionLarga": "Halo Infinite sigue al Jefe Maestro en una nueva campaña en Zeta Halo. Edición física para Xbox One y Xbox Series X.",
       "formato": "fisico",
-      "plataforma": "Xbox One / Xbox Series X"
+      "plataforma": "Xbox One / Xbox Series X",
+      "precioOferta": 29990
     },
     {
       "id": 10,
@@ -188,7 +193,8 @@
       ],
       "descripcionCorta": "Mando inalámbrico para consolas Xbox y PC.",
       "descripcionLarga": "Control Inalámbrico Xbox con agarre texturizado, cruceta híbrida y botón para compartir capturas. Compatible con Xbox Series X|S, Xbox One y PC.",
-      "compatibilidad": "Xbox Series X|S / Xbox One / PC"
+      "compatibilidad": "Xbox Series X|S / Xbox One / PC",
+      "precioOferta": 49990
     },
     {
       "id": 12,
@@ -205,6 +211,65 @@
       "descripcionCorta": "Figura coleccionable del Jefe Maestro de Halo.",
       "descripcionLarga": "Figura de Master Chief con su característica armadura de combate. Un coleccionable para los seguidores del universo Halo.",
       "franquicia": "Halo"
+    },
+    {
+      "codigo": "JUE-004",
+      "nombre": "Minecraft",
+      "categoria": "juego",
+      "ecosistema": "otros",
+      "enOferta": false,
+      "precio": 24990,
+      "imagen": "",
+      "imagenes": [],
+      "descripcionCorta": "El juego de construcción y aventura más vendido de la historia.",
+      "descripcionLarga": "Explora mundos generados al azar, construye lo que imagines y sobrevive a la noche. Edición digital multiplataforma con código de descarga.",
+      "formato": "digital",
+      "plataforma": "PC / Multiplataforma",
+      "franquicia": "Minecraft",
+      "id": 13
+    },
+    {
+      "codigo": "CON-004",
+      "nombre": "Steam Deck OLED 512 GB",
+      "categoria": "consola",
+      "ecosistema": "otros",
+      "enOferta": false,
+      "precio": 549990,
+      "imagen": "",
+      "imagenes": [],
+      "descripcionCorta": "Consola portátil de Valve para jugar tu biblioteca de Steam.",
+      "descripcionLarga": "Steam Deck con pantalla OLED HDR de 7,4 pulgadas, 512 GB de almacenamiento y batería de mayor duración. Ejecuta SteamOS y permite jugar títulos de PC en cualquier lugar.",
+      "plataforma": "PC (SteamOS)",
+      "id": 14
+    },
+    {
+      "codigo": "FIG-004",
+      "nombre": "Funko Pop Pac-Man",
+      "categoria": "figura",
+      "ecosistema": "otros",
+      "enOferta": true,
+      "precio": 14990,
+      "precioOferta": 11990,
+      "imagen": "",
+      "imagenes": [],
+      "descripcionCorta": "Figura coleccionable del clásico de arcade Pac-Man.",
+      "descripcionLarga": "Funko Pop de vinilo de Pac-Man, el ícono de los videojuegos arcade. Mide aproximadamente 10 cm y viene en caja de exhibición.",
+      "franquicia": "Pac-Man",
+      "id": 15
+    },
+    {
+      "codigo": "ACC-004",
+      "nombre": "Joy-Con (L)/(R) Neón",
+      "categoria": "accesorio",
+      "ecosistema": "nintendo",
+      "enOferta": false,
+      "precio": 79990,
+      "imagen": "",
+      "imagenes": [],
+      "descripcionCorta": "Par de controles Joy-Con rojo y azul neón para Nintendo Switch.",
+      "descripcionLarga": "Set de Joy-Con izquierdo y derecho en colores neón, con vibración HD y sensores de movimiento. Úsalos acoplados a la consola o por separado para jugar de a dos.",
+      "compatibilidad": "Nintendo Switch / Switch OLED",
+      "id": 16
     }
   ],
   "inventario": [
@@ -279,6 +344,30 @@
       "productoId": 12,
       "stock": 10,
       "stockCritico": null
+    },
+    {
+      "productoId": 13,
+      "stock": 30,
+      "stockCritico": null,
+      "id": 13
+    },
+    {
+      "productoId": 14,
+      "stock": 5,
+      "stockCritico": null,
+      "id": 14
+    },
+    {
+      "productoId": 15,
+      "stock": 20,
+      "stockCritico": null,
+      "id": 15
+    },
+    {
+      "productoId": 16,
+      "stock": 15,
+      "stockCritico": null,
+      "id": 16
     }
   ],
   "usuarios": [

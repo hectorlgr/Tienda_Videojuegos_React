@@ -8,7 +8,7 @@ import { createProductWithInventory, ProductInventoryCreationError } from '../..
 
 const initialValues = {
   product: {
-    codigo: '', nombre: '', categoria: '', precio: '', imagen: '', imagenes: '',
+    codigo: '', nombre: '', categoria: '', precio: '', precioOferta: '', imagen: '', imagenes: '',
     descripcionCorta: '', descripcionLarga: '', formato: '', plataforma: '',
     compatibilidad: '', franquicia: '', ecosistema: '', enOferta: false,
   },
@@ -21,6 +21,7 @@ const productFields = [
   { name: 'categoria', label: 'Categoría', required: true, options: CATALOG_CATEGORIES },
   { name: 'ecosistema', label: 'Ecosistema', required: true, options: STORE_ECOSYSTEMS },
   { name: 'precio', label: 'Precio (CLP)', type: 'number', min: 1, required: true },
+  { name: 'precioOferta', label: 'Precio de oferta (CLP)', type: 'number', min: 1, help: 'Obligatorio si marcas "Producto en oferta". Debe ser menor que el precio normal.' },
   { name: 'descripcionCorta', label: 'Descripción corta', multiline: true, maxLength: 120 },
   { name: 'descripcionLarga', label: 'Descripción larga', multiline: true, maxLength: 500 },
   { name: 'imagen', label: 'Ruta de imagen principal', help: 'Ruta relativa a public, por ejemplo img/cara_elden_ring.jpg. Puede quedar vacía; la tienda dispone de imagen de respaldo.' },
@@ -108,6 +109,8 @@ export default function AdminProductCreatePage() {
         ecosistema: next.product.ecosistema,
         enOferta: next.product.enOferta,
         precio: Number(next.product.precio),
+        // Sin oferta marcada, el precio de oferta no se guarda.
+        precioOferta: next.product.enOferta ? Number(next.product.precioOferta) : null,
         imagen: next.product.imagen,
         imagenes: next.product.imagenes.split(/\r?\n/).map(line => line.trim()).filter(Boolean),
         descripcionCorta: next.product.descripcionCorta,
