@@ -154,9 +154,10 @@
       "ecosistema": "xbox",
       "enOferta": true,
       "precio": 39990,
-      "imagen": "img/cara_halo_infinite.jpg",
+      "imagen": "img/halo_infinite_1.jpg",
       "imagenes": [
-        "img/cara_halo_infinite.jpg"
+        "img/halo-infinite_gameplay.jpg",
+        "img/halo_infinite_2.jpg"
       ],
       "descripcionCorta": "Acción y aventura con el Jefe Maestro en Zeta Halo.",
       "descripcionLarga": "Halo Infinite sigue al Jefe Maestro en una nueva campaña en Zeta Halo. Edición física para Xbox One y Xbox Series X.",
@@ -172,9 +173,9 @@
       "ecosistema": "xbox",
       "enOferta": false,
       "precio": 499990,
-      "imagen": "img/cara_xbox_series_x.jpg",
+      "imagen": "img/xbox_series_x.jpg",
       "imagenes": [
-        "img/cara_xbox_series_x.jpg"
+        "img/atras_series_x.png"
       ],
       "descripcionCorta": "Consola Xbox con lector de discos y almacenamiento SSD.",
       "descripcionLarga": "Xbox Series X ofrece juegos en 4K, almacenamiento SSD y lector de discos. Disfruta de títulos de nueva generación y juegos retrocompatibles de Xbox."
@@ -187,9 +188,9 @@
       "ecosistema": "xbox",
       "enOferta": true,
       "precio": 59990,
-      "imagen": "img/cara_control_xbox.jpg",
+      "imagen": "img/control_xbox.jpg",
       "imagenes": [
-        "img/cara_control_xbox.jpg"
+        "img/control_xbox_2.jpg"
       ],
       "descripcionCorta": "Mando inalámbrico para consolas Xbox y PC.",
       "descripcionLarga": "Control Inalámbrico Xbox con agarre texturizado, cruceta híbrida y botón para compartir capturas. Compatible con Xbox Series X|S, Xbox One y PC.",
@@ -204,7 +205,7 @@
       "ecosistema": "xbox",
       "enOferta": false,
       "precio": 24990,
-      "imagen": "img/cara_master_chief.jpg",
+      "imagen": "img/fig_master.jpg",
       "imagenes": [
         "img/cara_master_chief.jpg"
       ],
