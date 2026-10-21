@@ -219,8 +219,11 @@
       "ecosistema": "otros",
       "enOferta": false,
       "precio": 24990,
-      "imagen": "",
-      "imagenes": [],
+      "imagen": "img/minecraft-portada.jpg",
+      "imagenes": [
+        "img/minecraft-animales.jpg",
+        "img/minecraft-steve.jpg"
+      ],
       "descripcionCorta": "El juego de construcción y aventura más vendido de la historia.",
       "descripcionLarga": "Explora mundos generados al azar, construye lo que imagines y sobrevive a la noche. Edición digital multiplataforma con código de descarga.",
       "formato": "digital",
@@ -235,8 +238,11 @@
       "ecosistema": "otros",
       "enOferta": false,
       "precio": 549990,
-      "imagen": "",
-      "imagenes": [],
+      "imagen": "img/steam-deck.jpg",
+      "imagenes": [
+        "img/steam-deck-2.jpg",
+        "img/steam-deck-3.jpg"
+      ],
       "descripcionCorta": "Consola portátil de Valve para jugar tu biblioteca de Steam.",
       "descripcionLarga": "Steam Deck con pantalla OLED HDR de 7,4 pulgadas, 512 GB de almacenamiento y batería de mayor duración. Ejecuta SteamOS y permite jugar títulos de PC en cualquier lugar.",
       "plataforma": "PC (SteamOS)",
@@ -250,7 +256,7 @@
       "enOferta": true,
       "precio": 14990,
       "precioOferta": 11990,
-      "imagen": "",
+      "imagen": "img/funko-pac-man.jpg",
       "imagenes": [],
       "descripcionCorta": "Figura coleccionable del clásico de arcade Pac-Man.",
       "descripcionLarga": "Funko Pop de vinilo de Pac-Man, el ícono de los videojuegos arcade. Mide aproximadamente 10 cm y viene en caja de exhibición.",
