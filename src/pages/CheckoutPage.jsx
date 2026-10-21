@@ -39,7 +39,24 @@ export default function CheckoutPage() {
     setSubmitted(true)
     const nextErrors = validateCheckout(normalized)
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length === 0) navigate(destination)
+    if (Object.keys(nextErrors).length > 0) return
+
+    if (destination === '/compra-exitosa') {
+      const purchaseSummary = {
+        products: lines.map(line => ({
+          nombre: line.product?.nombre,
+          cantidad: line.cantidad,
+          precioUnitario: getEffectivePrice(line.product),
+          subtotal: calculateLineSubtotal(line),
+        })),
+        subtotal,
+        shippingCost,
+        total,
+      }
+      navigate(destination, { state: { purchaseSummary } })
+    } else {
+      navigate(destination)
+    }
   }
 
   function changeRegion(regionId) {
