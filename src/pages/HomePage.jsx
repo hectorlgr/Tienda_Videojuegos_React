@@ -6,7 +6,6 @@ import { CATALOG_CATEGORIES } from '../config/catalogCategories'
 import { useCatalogProducts } from '../hooks/useCatalogProducts'
 import { publicAsset } from '../utils/assets'
 
-// Selección de la Home antigua; los datos comerciales proceden del catálogo real.
 const FEATURED_PRODUCT_IDS = [1, 2, 3, 4, 5, 6, 7, 8]
 const categoryIcons = {
   juego: 'fa-gamepad',
