@@ -7,7 +7,7 @@ import ProductPrice from './ProductPrice'
 
 const AUTOPLAY_DELAY = 5000
 
-// Carrusel simple en React (sin el JS de Bootstrap): flechas, indicadores y avance automático.
+// Carrusel simple en React: flechas, indicadores y avance automático.
 export default function ProductCarousel({ products }) {
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)

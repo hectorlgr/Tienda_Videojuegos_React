@@ -7,8 +7,6 @@ import CartProvider from '../context/CartProvider.jsx'
 
 afterEach(cleanup)
 
-// Monta el AppRouter REAL (no rutas inventadas) con lo mínimo que necesita el layout de la tienda:
-// MemoryRouter en lugar de BrowserRouter, y los providers de sesión y carrito.
 function renderizarRuta(ruta) {
   return render(
     <MemoryRouter initialEntries={[ruta]}>
