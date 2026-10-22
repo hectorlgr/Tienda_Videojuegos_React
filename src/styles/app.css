@@ -324,6 +324,149 @@ a:focus-visible, button:focus-visible {
   object-fit: contain;
 }
 
+.product-carousel {
+  position: relative;
+  overflow: hidden;
+  background: #f7f7fa;
+  border: 1px solid #e4e7ed;
+}
+
+.product-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.product-carousel-slide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 32px;
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 32px 72px 56px;
+}
+
+.product-carousel-image {
+  position: relative;
+  background: #fff;
+}
+
+.product-carousel-image img {
+  display: block;
+  width: 100%;
+  height: clamp(200px, 30vw, 340px);
+  object-fit: contain;
+}
+
+.product-carousel-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  background: #8a2be2;
+  color: #fff;
+  font-weight: 700;
+}
+
+.product-carousel-content {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-carousel-content h3 {
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.product-carousel-content p {
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.product-carousel-content .product-price {
+  margin-bottom: 20px;
+  color: #8a2be2;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.product-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: #7020ba;
+  color: #fff;
+  transform: translateY(-50%);
+}
+
+.product-carousel-arrow:hover {
+  background: #54178d;
+}
+
+.product-carousel-arrow.is-prev {
+  left: 16px;
+}
+
+.product-carousel-arrow.is-next {
+  right: 16px;
+}
+
+.product-carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+.product-carousel-dots button {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 2px solid #7020ba;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.product-carousel-dots button.is-active {
+  background: #7020ba;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-carousel-track {
+    transition: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-carousel-slide {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px 20px 72px;
+    text-align: center;
+  }
+
+  .product-carousel-arrow {
+    top: auto;
+    bottom: 12px;
+    transform: none;
+  }
+
+  .product-carousel-dots {
+    bottom: 28px;
+    padding: 0 68px;
+  }
+}
+
 .home-editorial-banner {
   display: grid;
   align-items: center;

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/store/ProductCard'
+import ProductCarousel from '../components/store/ProductCarousel'
 import ImageWithFallback from '../components/common/ImageWithFallback'
 import { CATALOG_CATEGORIES } from '../config/catalogCategories'
 import { useCatalogProducts } from '../hooks/useCatalogProducts'
@@ -26,6 +27,8 @@ export default function HomePage() {
   const featuredProducts = FEATURED_PRODUCT_IDS
     .map(id => products.find(product => product.id === id))
     .filter(Boolean)
+  // El carrusel muestra solo lo que se puede comprar ahora (con stock).
+  const availableProducts = products.filter(product => product.stock > 0)
 
   return (
     <div className="home-page">
@@ -46,6 +49,21 @@ export default function HomePage() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section home-carousel" aria-labelledby="home-carousel-title">
+        <div className="container">
+          <h2 id="home-carousel-title" className="home-section-title">Productos en venta</h2>
+          {loading ? (
+            <p className="catalog-state" role="status">Cargando productos...</p>
+          ) : error ? (
+            <p className="catalog-state" role="alert">No fue posible cargar los productos.</p>
+          ) : availableProducts.length === 0 ? (
+            <p className="catalog-state" role="status">No hay productos disponibles en este momento.</p>
+          ) : (
+            <ProductCarousel products={availableProducts} />
+          )}
         </div>
       </section>
 
